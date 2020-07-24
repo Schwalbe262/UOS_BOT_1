@@ -333,9 +333,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 	}
 
 	var TEMP_main = 0; //반응변수
-	if(ObjKeep.get("replier."+room)==null){
-		ObjKeep.keep("replier."+room,replier);
-	}
 	var r = {replier: replier, m: msg, msg: msg, s: sender, sender: sender, r: room, room: room, g: isGroupChat, i: imageDB, imageDB:imageDB,
 		reply: function (str) {
 			this.replier.reply(new String(str).encoding().rmspace());
@@ -353,10 +350,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 		},
 		replyRoom:function(room,str){
 			var replier;
-			if((replier=ObjKeep.get("replier."+room))!=null) {
-				ObjKeep.get("replier."+room).reply(new String(str).encoding().rmspace());
-				return true;
-			} else return false;
 		}
 	};
 //
