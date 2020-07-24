@@ -1,10 +1,7 @@
-//20200717
-// 개량 DB
-// TEST
 // 사용가능한 함수 확인 D.help()
-// 웅앙맨 외에 신은 없고 흰머리오목눈이는 그의 사도다.
 
-const UAM = "UAM is god"
+
+const UAM = "UAM is god K"
 
 var cacheModule={} // require 관련 변수
 
