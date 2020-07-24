@@ -435,11 +435,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 	*/
 
-		if(Api.getRoomList().length!=getNum("roomNumber")){ // 방 정보 입력
-			setDB("roomNumber",Api.getRoomList().length)
-			roomList  = Api.getRoomList().join("\n")
-		}
-
 		// eval 활성화코드 (비상 정지시에도 eval은 활성화)
 		if(msg.indexOf(">")==0&&(room=="봇장난"||room=="노은총")&&evalON==0){
 			//replier.reply(eval(msg).toString().encoding())
