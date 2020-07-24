@@ -90,49 +90,19 @@ var KOSDAQ_log = getDB("KOSDAQ_log")
 var WTI_flag = 0;
 var comment_flag = 0;
 
-var stock_cat = 0
 
 var startDate = new Date();
-var test = 1;
-//var dream_cnt=0;
-var schwalbe_cnt=0;
-var dream_cnt_m=0;
-var schwalbe_cnt_m=0;
-var reloaded=1;
-var temp_M=0;
-var temp_M_schwalbe=0;
+
 var evalON=0;
 var NECevalON=0;
-var dayV=0;
-var dayV_DAR=0;
-var sms_cnt=0;
+
 
 var myDB = android.database.sqlite.SQLiteDatabase.openDatabase("/sdcard/kbot/DB", null, android.database.sqlite.SQLiteDatabase.CREATE_IF_NECESSARY);
-var TMI = 0; // TMI 분당 경고기용 변수
-var Emergency = 0;
-var dream_status = "normal";
-var k = 0;
-var updateStart = 0;
 
-var sg_count = 0;
-var ECE_count = 0;
-
-var clockTest = 0;
-var clock_minuteTest = 0;
-var clock_3minuteTest = 0;
 
 var responseOFF=0
 
 var roomList=""
-
-var KKlastTime = new Date().valueOf()
-
-// search용 변수
-var ECE_temp_교과목명 = []
-var ECE_temp_담당교수 = []
-var ECE_temp_강의시간및강의실 = []
-
-
 
 
 AnswerSet=new java.util.concurrent.ConcurrentHashMap()
@@ -175,6 +145,7 @@ function monitor(room,sender,checkFunc,extractFunc,time){
 /*Array.prototype.includes=function(target){
 	return this.indexOf(target)!=-1
 }*/
+
 Object.defineProperty(Array.prototype,"includes",	{
 	value:function(target){
 		return this.indexOf(target)!=-1
@@ -1323,280 +1294,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 
 
-//=========================================================================================================================================
-
-
-		if(msg=="/공갤확인"){
-			var str_PU = ""
-			for(var i=0 ; i<20 ; i++){
-				str_PU += (i+1)+"."+getDB("DC_title_"+(getNum("DCP_max")-i))+"\n"
-			}
-			r.reply(str_PU)
-			r.reply("/공갤확인 [번호] 입력하면 링크제공")
-		}
-		else if(msg.indexOf("/공갤확인")==0){
-			if(msg.substring(6)<21&&msg.substring(6)>-1){
-				r.reply( getDB("DCinside_pu_page_"+(Number(msg.substring(6))-1)) )
-			}
-			else if(msg.substring(5)<21&&msg.substring(5)>-1){
-				r.reply( getDB("DCinside_pu_page_"+(Number(msg.substring(5))-1)) )
-			}
-			else{
-				r.reply("1에서 20사이의 숫자를 입력해주세요.")
-			}
-		}
-
-//=================================================================================================================================================
-
-		setDB("ENG_finish_"+sender,"ON")
-
-		if(msg=="/영어단어학습"){
-			r.reply("\"/기능 영어단어학습\"을 입력해서 메뉴얼을 먼저 읽어주세요.")
-		}
-		else if(msg.indexOf("/영어단어학습프로필생성")==0){
-			try{
-				var name_Profile = msg.substring(13)
-				D.create("profile_"+name_Profile,{번호:1,숙련도:1,횟수:0})
-				updateProfile(name_Profile)
-				r.reply(name_Profile+" 프로필이 등록되었습니다.")
-			}
-			catch(e){
-				r.reply("이미 존재하는 프로필네임입니다.")
-			}
-		}
-		else if(msg.indexOf("/영어단어학습종료")==0){
-			setDB("englishProfileActive_"+sender,"OFF")
-			r.reply("영어단어 학습이 종료되었습니다.")
-		}
-		else if(msg.indexOf("/영어단어학습시작")==0){
-			var name_Profile = msg.substring(10)
-			updateProfile(name_Profile) // 프로필 업데이트
-			setDB("englishProfileSender_"+sender,name_Profile) // 해당 sender에 해당하는 profile 입력
-			setDB("englishProfileRoom_"+sender,room) // 해당 sender가 있는 room 입력
-			setDB("englishProfileActive_"+sender,"ON") // 영어학습 스위치 온
-
-			r.reply("영어단어 학습이 시작되었습니다.")
-			r.reply("뜻을 보고 싶으시면 아무 메세지나 입력해주세요")
-
-			if(Rand16<4){ // 숙련도 1 (0)
-				if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1],{orderBy:"번호 desc"}) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2],{orderBy:"번호 desc"}) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-			}
-			else{
-				if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[4],{orderBy:"번호 desc"}) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1],{orderBy:"번호 desc"}) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-			}
-
-			r.reply(getEDB(getDB("EngTempNum_"+sender))[1])
-			setDB("EngPhase_"+sender,"WAIT") // 답변 대기
-			setDB("ENG_finish_"+sender,"OFF")
-
-		}
-
-		if(getDB("englishProfileActive_"+sender)=="ON"&&getDB("EngPhase_"+sender)=="WAIT"&&getDB("ENG_finish_"+sender)=="ON"){ // 답변 대기상태에서 msg 수신
-			r.reply(getEDB(getDB("EngTempNum_"+sender))[2])
-			r.reply("단어를 알면 1, 보통이면 2, 모르면 3을 입력해주세요")
-			setDB("EngPhase_"+sender,"WAIT2") // 답변 대기2
-			setDB("ENG_finish_"+sender,"OFF")
-		}
-
-		if(getDB("englishProfileActive_"+sender)=="ON"&&getDB("EngPhase_"+sender)=="WAIT2"&&getDB("ENG_finish_"+sender)=="ON"){ // 답변 대기상태에서 msg 수신
-			if(msg=="2"){ // +0
-				var EngTemp2 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][2] + 1;
-				D.update("profile_"+getDB("englishProfileSender_"+sender),{횟수:EngTemp2},"번호=?",[getDB("EngTempNum_"+sender)])
-				setDB("EngPhase_"+sender,"NEXT") // 다음 단어로 이동
-				//setDB("ENG_finish_"+sender,"OFF")
-			}
-			else if(msg=="3"){ // +1
-				if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][1]==2){ //횟수만 +1 하는 경우
-					var EngTemp2 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][2] + 1;
-					D.update("profile_"+getDB("englishProfileSender_"+sender),{횟수:EngTemp2},"번호=?",[getDB("EngTempNum_"+sender)])
-
-				}
-				else{
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][1] + 1;
-					var EngTemp2 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][2] + 1;
-					D.update("profile_"+getDB("englishProfileSender_"+sender),{숙련도:EngTemp1,횟수:EngTemp2},"번호=?",[getDB("EngTempNum_"+sender)])
-				}
-				setDB("EngPhase_"+sender,"NEXT") // 다음 단어로 이동
-				//setDB("ENG_finish_"+sender,"OFF")
-			}
-			else if(msg=="1"){ // -1
-				if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][1]==1){ //횟수만 +1 하는 경우
-					var EngTemp2 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][2] + 1;
-					D.update("profile_"+getDB("englishProfileSender_"+sender),{횟수:EngTemp2},"번호=?",[getDB("EngTempNum_"+sender)])
-				}
-				else{
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][1] - 1;
-					var EngTemp2 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][2] + 1;
-					D.update("profile_"+getDB("englishProfileSender_"+sender),{숙련도:EngTemp1,횟수:EngTemp2},"번호=?",[getDB("EngTempNum_"+sender)])
-				}
-				setDB("EngPhase_"+sender,"NEXT") // 다음 단어로 이동
-				//setDB("ENG_finish_"+sender,"OFF")
-			}
-			else if(msg=="22"){
-				var EngTemp2 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][2] + 1;
-				D.update("profile_"+getDB("englishProfileSender_"+sender),{횟수:EngTemp2},"번호=?",[getDB("EngTempNum_"+sender)])
-				setDB("EngPhase_"+sender,"PRINTEX") // 예문 출력
-				//setDB("ENG_finish_"+sender,"OFF")
-			}
-			else if(msg=="33"){ // +1
-				if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][1]==2){ //횟수만 +1 하는 경우
-					var EngTemp2 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][2] + 1;
-					D.update("profile_"+getDB("englishProfileSender_"+sender),{횟수:EngTemp2},"번호=?",[getDB("EngTempNum_"+sender)])
-				}
-				else{
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][1] + 1;
-					var EngTemp2 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][2] + 1;
-					D.update("profile_"+getDB("englishProfileSender_"+sender),{숙련도:EngTemp1,횟수:EngTemp2},"번호=?",[getDB("EngTempNum_"+sender)])
-				}
-				setDB("EngPhase_"+sender,"PRINTEX") // 예문 출력
-				//setDB("ENG_finish_"+sender,"OFF")
-			}
-			else if(msg=="11"){ // -1
-				if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][1]==1){ //횟수만 +1 하는 경우
-					var EngTemp2 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][2] + 1;
-					D.update("profile_"+getDB("englishProfileSender_"+sender),{횟수:EngTemp2},"번호=?",[getDB("EngTempNum_"+sender)])
-				}
-				else{
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][1] - 1;
-					var EngTemp2 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender))[getDB("EngTempNum_"+sender)-1][2] + 1;
-					D.update("profile_"+getDB("englishProfileSender_"+sender),{숙련도:EngTemp1,횟수:EngTemp2},"번호=?",[getDB("EngTempNum_"+sender)])
-				}
-				setDB("EngPhase_"+sender,"PRINTEX") // 예문출력
-				//setDB("ENG_finish_"+sender,"OFF")
-			}
-			else{
-				r.replyRoom("올바른 숫자를 입력해주세요")
-				setDB("ENG_finish_"+sender,"OFF")
-			}
-		}
-
-		if(getDB("englishProfileActive_"+sender)=="ON"&&getDB("EngPhase_"+sender)=="PRINTEX"&&getDB("ENG_finish_"+sender)=="ON"){ // 단어 출력
-			r.reply(getEDB(getDB("EngTempNum_"+sender))[3])
-			r.reply(getEDB(getDB("EngTempNum_"+sender))[4])
-			r.reply("다음으로 넘어가고 싶으면 아무 메세지나 입력해주세요");
-			setDB("EngPhase_"+sender,"WAIT3")
-			setDB("ENG_finish_"+sender,"OFF")
-		}
-
-		if(getDB("englishProfileActive_"+sender)=="ON"&&getDB("EngPhase_"+sender)=="WAIT3"&&getDB("ENG_finish_"+sender)=="ON"){ // 단어 출력
-			setDB("EngPhase_"+sender,"NEXT")
-		}
-
-
-		if(getDB("englishProfileActive_"+sender)=="ON"&&getDB("EngPhase_"+sender)=="NEXT"&&getDB("ENG_finish_"+sender)=="ON"){ // 단어 출력
-			if(Rand16==0){ // 숙련도 1 (0)
-				if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[3])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[3]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[4])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[4]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-			}
-			else if(Rand16<=3){ // 숙련도 2 (123)
-				if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[3])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[3]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[4])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[4]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-			}
-			else if(Rand16<=9){ // 숙련도 3 (456789)
-				if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[3])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[3]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[4])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[4]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-			}
-			else{
-				if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[4])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[4]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[1]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[2]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-				else if(D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[3])!=""){
-					var EngTemp1 = D.selectForArray("profile_"+getDB("englishProfileSender_"+sender),"번호","숙련도 = ?",[3]) // 숙련도 1에 해당하는 단어들 모두 출력
-					var EngTemp2 = EngTemp1[Math.floor(Math.random() * EngTemp1.length)] // 단어들 중 하나 랜덤 뽑기
-					setDB("EngTempNum_"+sender,EngTemp2) // 번호
-				}
-			}
-
-			r.reply(getEDB(getDB("EngTempNum_"+sender))[1])
-			setDB("EngPhase_"+sender,"WAIT") // 답변 대기
-			setDB("ENG_finish_"+sender,"OFF")
-		}
-
-
 		if(msg=="/빈강의"){
 			var lecLength = String(org.jsoup.Jsoup.connect("http://wise.uos.ac.kr/uosdoc/api.ApiUcrMjTimeInq.oapi?apiKey=201808506NVF93269&year=2019&term=A10&deptDiv=23100&dept=A200110111&subDept=A200160116").get().select("subject_nm")).split("<subject_nm><![CDATA[").length
 			var str = ""
@@ -1627,7 +1324,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 				r.reply(str)
 			}
 		}
-
 
 
 		if(msg=="/중도"){
@@ -1872,7 +1568,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 function update() {
 	timer.start();
 	Api.replyRoom(console_room_name,"updating...");
-	Git.pull("https://github.com/Schwalbe262/UOS_BOT_4","/sdcard/katalkbot/Bots/main")
+	Git.pull("https://github.com/Schwalbe262/UOS_BOT_1","/sdcard/katalkbot/Bots/main")
 	Api.replyRoom(console_room_name,"complete");
 	var time = timer.end();
 	var msg = "time : " + java.lang.String.format("%.2f",time/1000) + "sec";
