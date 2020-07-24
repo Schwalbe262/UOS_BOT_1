@@ -1196,10 +1196,10 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 			r.reply("조회하실 역이름을 입력해주세요.\n'/기능 전철'을 입력하여 메뉴얼을 읽어주세요")
 		}
 		else if(msg.indexOf("/전철")==0){
-			r.reply(Metro.output(room,msg.substr(4)))
+			Metro.output(room,msg.substr(4))
 		}
 		else if(msg.indexOf("/지하철")==0||msg.indexOf("/메트로")==0){
-			r.reply(Metro.output(room,msg.substr(5)))
+			Metro.output(room,msg.substr(5))
 		}
 
 
