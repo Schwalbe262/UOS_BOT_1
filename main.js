@@ -305,10 +305,9 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 	// 초기값 세팅
 	if(start==1){
-		thread_UOSP1.start()
 		thread_1.start()
 		clock.start();
-		clock_minute.start();
+		thread_UOSP1.start()
 		thread_UOSP_control.start();
 		start=0;
 	}
@@ -881,62 +880,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 		}
 
 //===================================================================================================================================
-
-
-
-		if(room=="공지확인방"){
-		}
-		else if(msg.indexOf("/시간채팅량")==0){
-			var time_hour_chat_people = "" // 검색할 사람 이름
-			if(msg=="/시간채팅량"){time_hour_chat_people=sender}
-			else{time_hour_chat_people=msg.substring(7)}
-
-			var time_hour_chat_num_sum = sumDB(room,"hour") // 1시간동안 전체 채팅량
-			var time_hour_chat_num_max = searchMaxDB(room,"hour").split("||")[1] // 1시간동안 최대 채팅량
-			var time_hour_chat_num_max_who = searchMaxDB(room,"hour").split("||")[0] // 1시간동안 최대 채팅자
-			var time_hour_chat_num = D.selectForArray("chatTable","hourChat","sender like ? and room like ?",[sender,room]) // 요청한사람의 시간 채팅량
-
-			if(nowminute>9){
-				r.reply(nowhour+":00~"+nowhour+":"+nowminute+"동안 톡방 전체 채팅량 : "+time_hour_chat_num_sum+"회")
-				r.reply(nowhour+":00~"+nowhour+":"+nowminute+"동안 최고의 TMI : "+time_hour_chat_num_max_who+" ("+time_hour_chat_num_max+"회)")
-				r.reply(nowhour+":00~"+nowhour+":"+nowminute+"동안 "+time_hour_chat_people+"의 대화횟수 : "+time_hour_chat_num+"회")
-			}
-			else if(nowminute<10){
-				r.reply(nowhour+":00~"+nowhour+":0"+nowminute+"동안 톡방 전체 채팅량 : "+time_hour_chat_num_sum+"회")
-				r.reply(nowhour+":00~"+nowhour+":0"+nowminute+"동안 최고의 TMI : "+time_hour_chat_num_max_who+" ("+time_hour_chat_num_max+"회)")
-				r.reply(nowhour+":00~"+nowhour+":0"+nowminute+"동안 "+time_hour_chat_people+"의 대화횟수 : "+time_hour_chat_num+"회")
-			}
-		}
-
-//===================================================================================================================================
-
-		if(room=="공지확인방"){
-		}
-		else if(msg.indexOf("/일일채팅량")==0){
-			var time_day_chat_people = "" // 검색할 사람 이름
-			if(msg=="/일일채팅량"){time_day_chat_people=sender}
-			else{time_day_chat_people=msg.substring(7)}
-
-			var time_day_chat_num_sum = sumDB(room,"day") // 1일동안 전체 채팅량
-			var time_day_chat_num_max = searchMaxDB(room,"day").split("||")[1] // 1일동안 최대 채팅량
-			var time_day_chat_num_max_who = searchMaxDB(room,"day").split("||")[0] // 1일동안 최대 채팅자
-			var time_day_chat_num = D.selectForArray("chatTable","dayChat","sender like ? and room like ?",[sender,room]) // 요청한사람의 1일 채팅량
-
-			if(nowminute>9){
-				r.reply("00:00~"+nowhour+":"+nowminute+"동안 톡방 전체 채팅량 : "+time_day_chat_num_sum+"회")
-				r.reply("00:00~"+nowhour+":"+nowminute+"동안 최고의 TMI : "+time_day_chat_num_max_who+" ("+time_day_chat_num_max+"회)")
-				r.reply("00:00~"+nowhour+":"+nowminute+"동안 "+time_day_chat_people+"의 대화횟수 : "+time_day_chat_num+"회")
-			}
-			else if(nowminute<10){
-				r.reply("00:00~"+nowhour+":0"+nowminute+"동안 톡방 전체 채팅량 : "+time_day_chat_num_sum+"회")
-				r.reply("00:00~"+nowhour+":0"+nowminute+"동안 최고의 TMI : "+time_day_chat_num_max_who+" ("+time_day_chat_num_max+"회)")
-				r.reply("00:00~"+nowhour+":0"+nowminute+"동안 "+time_day_chat_people+"의 대화횟수 : "+time_day_chat_num+"회")
-			}
-		}
-
-
-//===================================================================================================================================
-
 
 		if(room=="공지확인방"){
 		}
@@ -5096,123 +5039,6 @@ clock = new java.lang.Thread(new java.lang.Runnable(){
 		}
 	}
 }, "kbot_thread_clock");
-
-clock_minute = new java.lang.Thread(new java.lang.Runnable({
-	run:function(){
-		switcher_minute = 1
-		var is_printed = false
-		try{
-			Api.replyRoom("봇장난","clock_minute 스레드실행")
-			while(1){
-				if(switcher == 0){
-					break
-				}
-
-				/*
-				var date = new Date();
-				try{
-					if(date.getMinutes()==0){
-						clearHourDB() // 시간
-					}
-				}
-				catch(e){
-					Api.replyRoom("봇장난","clock_minute-2 error\n"+e + "\n" + e.stack + "\n"+e.rhinoException+"\n\nMessage start\n"+e.message+"Message end");
-				}
-				try{
-					if(date.getMinutes()==0&&date.getHours()==0){
-						//Api.replyRoom("시갤톡방","지난 1일동안 톡방 전체 채팅량 : "+sumDB("시갤톡방","day")+"회")
-						//Api.replyRoom("시갤톡방","지난 1일동안 최고의 TMI : "+getDB("DB시갤톡방_"+searchMaxDB("시갤톡방","day").split("||")[0]).split("||")[1]+" ("+searchMaxDB("시갤톡방","day").split("||")[1]+"회)")
-						clearDayDB() // 일DB
-					}
-
-				}
-				catch(e){
-					Api.replyRoom("봇장난","clock_minute-3 error\n"+e + "\n" + e.stack + "\n"+e.rhinoException+"\n\nMessage start\n"+e.message+"Message end");
-				}
-				*/
-				/*
-				try{
-
-					if((date.getHours()==16&&date.getDay()!=6&&date.getDay()!=0&&date.getMinutes()>50)||(date.getHours()==17&&date.getMinutes()<40)){
-						dream_status = "selfStudy";
-					}
-					else if((date.getHours()>8&&date.getDay()!=6&&date.getDay()!=0&&date.getHours()<16)||(date.getHours()==16&&date.getMinutes()<50)){
-						dream_status = "Study";
-					}
-					else{
-						dream_status = "normal";
-					}
-
-				}
-				catch(e){
-					Api.replyRoom("봇장난","clock_minute-4 error\n"+e + "\n" + e.stack + "\n"+e.rhinoException+"\n\nMessage start\n"+e.message+"Message end");
-				}
-				*/
-
-
-				//===============================================================================================
-
-				/*
-				try{ // clock 꺼졌을시 재시동
-					if(clock.isAlive()==false && updateStart==0 ){
-						clock.run()
-					}
-				}
-				catch(e){
-					Api.replyRoom("봇장난","clock_minute-1 error\n"+e + "\n" + e.stack + "\n"+e.rhinoException+"\n\nMessage start\n"+e.message+"Message end");
-				}
-				*/
-
-				//===============================================================================================
-
-				/*
-				try{
-					java.lang.Thread.sleep(600000) //1sec
-					UOS_Time_DB_update("2019","A10","U")
-					//Api.replyRoom("봇장난","UOSP3작동")
-				}catch(e){
-					Api.replyRoom("봇장난","2019 prasing error\n"+e + "\n" + e.stack + "\n" + e.rhinoException + "\n" + e.lineNumber);
-					java.lang.Thread.sleep(15000) //1sec
-				}
-				*/
-
-				/*
-				try{
-					java.lang.Thread.sleep(600000) //1sec
-					UOS_Time_DB_update("2019","A10","U")
-					//Api.replyRoom("봇장난","UOSP3작동")
-				}catch(e){
-					Api.replyRoom("봇장난","2019 prasing error\n"+e + "\n" + e.stack + "\n" + e.rhinoException + "\n" + e.lineNumber);
-					java.lang.Thread.sleep(15000) //1sec
-				}
-				*/
-
-
-				/*
-				try{
-					java.lang.Thread.sleep(5000) //1sec
-					sugang()
-					//Api.replyRoom("봇장난","UOSP1작동")
-				}catch(e){
-					Api.replyRoom("봇장난","sugang error\n"+e + "\n" + e.stack + "\n" + e.rhinoException + "\n" + e.lineNumber);
-					java.lang.Thread.sleep(15000) //1sec
-				}
-				*/
-
-
-
-				java.lang.Thread.sleep(60000) //1sec
-			}
-		}catch(e){
-			Api.replyRoom("봇장난","clock_minute error\n"+e + "\n" + e.stack + "\n"+e.rhinoException+"\n\nMessage start\n"+e.message+"Message end");
-		}
-
-		finally{
-			Api.replyRoom("봇장난","clock_minute 스레드종료")
-		}
-
-	}
-}, "kbot_thread_clock_minute"));
 
 
 
