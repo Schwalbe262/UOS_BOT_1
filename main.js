@@ -244,19 +244,9 @@ String.prototype.을를=function(){
 String.prototype.아야=function(){
 	return this.toString().받침() ? this.toString()+"아" : this.toString()+"야";
 }
-
 String.prototype.date = function(){
 	return Number(this)<10 ? "0"+this.toString() : this.toString();
 }
-/*
-String.prototype.plus0=function(){
-	if(this.toString().length==1){
-		return "0"+this.toString()
-	else{
-		return this
-	}
-}
-*/
 
 //--------------------------------------------------------------------------------------------------------------
 
@@ -347,22 +337,11 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 	// 초기값 세팅
 	if(start==1){
-		//clock thread
-		//clock.setDaemon(true)
-		//clock_minute.setDaemon(true)
-		//clock_minute.setDaemon(true)
-		//clock_3minute.setDaemon(true)
 		thread_UOSP1.start()
 		thread_1.start()
 		clock.start();
 		clock_minute.start();
 		thread_UOSP_control.start();
-		//DCPT.start();
-		/*
-        for(var i=0 ; i<Api.getRoomList().length ; i++){
-            roomList = roomList+Api.getRoomList()[i]+","
-        }
-        */
 		start=0;
 	}
 
@@ -947,127 +926,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 //===================================================================================================================================
 
-		/*
-
-		//독일어 : de, 라틴어 : la, 러시아어 : ru, 몽골어 : mn, 베트남어 : vi, 벵골어 : bn 스페인어 : es, 아랍어 : ar
-		//영어 : en, 이탈리아어 : it, 인도네시아어 : id, 일본어 : ja, 중국어(간체) : zh, 중국어(번체) : zh-TW
-		//태국어 : th, 프랑스어 : fr, 한국어 : ko, 힌디어 : hi, 스웨덴어 : sv
-
-
-		if(room=="공지확인방"){
-		}
-		///자동번역 한영
-		if(msg.substring(0,5)=="/자동번역"&&msg.substring(6,7)==msg.substring(7,8)){
-			r.reply("번역대상언어와 번역결과언어를 다르게 설정해주세요.")
-		}
-		else if(/^\/자동번역\s[한일중영독라러몽베벵스웨아이인태프힌]{2}/.test(r.m)&&msg.indexOf("/일일채팅량")!=0){
-
-			function langSelect(str){
-				return str.replace("독","de").replace("라","la").replace("러","ru").replace("몽","mn").replace("베","vi").replace("벵","bn").replace("스","es").replace("아","ar").replace("영","en").replace("이","it").replace("인","id").replace("일","ja").replace("중","zh").replace("태","th").replace("프","fr").replace("한","ko").replace("힌","hi").replace("웨","sv")
-			}
-			setDB("transIn"+sender+room,langSelect(r.m[6]))
-			setDB("transOut"+sender+room,langSelect(r.m[7]))
-			if( getDB("trans"+sender+room) == "0" || getDB("trans"+sender+room) == undefined ){
-				setDB("trans"+sender+room, "1" )
-				r.reply(sender+"의 "+r.m[6]+r.m[7]+"자동번역 기능을 ON합니다.")
-			}
-		}
-		else if(msg=="/자동번역 OFF"||msg=="/자동번역 off"||msg=="/자동번역 Off"||msg=="/자동번역 종료"||msg=="/자동번역 끄기"||msg=="/자동번역 그만"){
-			setDB("trans"+sender+room, "0" )
-			r.reply(sender+"의 자동번역 기능을 OFF합니다.")
-		}
-		else if(msg=="/자동번역 ON"||msg=="/자동번역 on"||msg=="/자동번역 On"||msg=="/자동번역"){
-			r.reply("자동번역하실 언어를 입력해주세요.\n'/기능 자동번역'을 입력하여 메뉴얼을 읽어주세요")
-		}
-		else if(msg=="/번역기"){
-			r.reply("번역하실 언어를 입력해주세요.\n'/기능 번역기'를 입력하여 메뉴얼을 읽어주세요")
-		}
-		else if(msg.indexOf("/자동번역")==0){
-			r.reply("자동번역하실 언어를 정확하게 입력해주세요.\n'/기능 자동번역'을 입력하여 메뉴얼을 읽어주세요")
-		}
-
-
-
-		if(room=="공지확인방"){
-		}
-		else if(/^\/[한일중영독라러몽베벵스웨아이인태프힌]{2}/.test(r.m) && (getDB("trans"+sender+room)==0||getDB("trans"+sender+room)==undefined) &&msg.indexOf("/일일채팅량")!=0 ){
-			function langSelect(str){
-				return str.replace("독","de").replace("라","la").replace("러","ru").replace("몽","mn").replace("베","vi").replace("벵","bn").replace("스","es").replace("아","ar").replace("영","en").replace("이","it").replace("인","id").replace("일","ja").replace("중","zh").replace("태","th").replace("프","fr").replace("한","ko").replace("힌","hi").replace("웨","sv")
-			}
-			r.reply(translateText(langSelect(r.m[1]),langSelect(r.m[2]),r.m.substr(3)).replaceAmp())
-		}
-
-		if(room=="공지확인방"){ // 자동번역 작동
-		}
-		else if(getDB("trans"+sender+room)==1){
-			function langSelect(str){
-				return str.replace("독","de").replace("라","la").replace("러","ru").replace("몽","mn").replace("베","vi").replace("벵","bn").replace("스","es").replace("아","ar").replace("영","en").replace("이","it").replace("인","id").replace("일","ja").replace("중","zh").replace("태","th").replace("프","fr").replace("한","ko").replace("힌","hi").replace("웨","sv")
-			}
-			r.reply( sender + " : " + translateText( getDB("transIn"+sender+room), getDB("transOut"+sender+room) ,r.m ).replaceAmp() )
-		}
-
-		*/
-
-
-		if(msg=="/왈도체 ON"){
-			setDB("transWaldo"+sender,"1")
-			r.reply("ON")
-		}
-		if(msg=="/왈도체 OFF"){
-			setDB("transWaldo"+sender,"0")
-			r.reply("OFF")
-		}
-		if(getDB("transWaldo"+sender)=="1"){
-			var waldo_msg = msg.split(" ")
-			var waldo_msg_temp = waldo_msg.reverse()
-			r.reply( translateText("la","ko", translateText("fr","la", translateText("ru","fr", translateText("ja","ru", translateText("ar","ja",translateText("zh","ar",translateText("ko","zh",waldo_msg_temp).replaceAmp() ).replaceAmp() ).replaceAmp() ).replaceAmp() ).replaceAmp() ).replaceAmp() ).replaceAmp() )
-		}
-		/*
-	if(msg=="/왈도체 전체ON"){
-		setDB("transWaldo","1")
-	}
-	if(msg=="/왈도체 전체OFF"){
-		setDB("transWaldo","0")
-	}
-	if(getDB("transWaldo")=="1"){
-		var waldo_msg = msg.split(" ")
-		var waldo_msg_temp = ""
-		for(var i=0 ; i<waldo_msg.length ; i++){
-			waldo_msg_temp += waldo_msg[waldo_msg.length-1-i]
-		}
-		r.reply( translateText("la","ko", translateText("fr","la", translateText("ru","fr", translateText("ja","ru", translateText("ar","ja",translateText("zh","ar",translateText("ko","zh",waldo_msg_temp).replaceAmp() ).replaceAmp() ).replaceAmp() ).replaceAmp() ).replaceAmp() ).replaceAmp() ).replaceAmp() )
-	}
-	*/
-
-
-		/*
-
-	//번역기능
-	if(r.m.indexOf("/한영") == 0){r.reply(Api.papagoTranslate("ko", "en", r.m.substr(3), 1));}
-	if(r.m.indexOf("/영한") == 0){r.reply(Api.papagoTranslate("en", "ko", r.m.substr(3), 1));}
-	if(r.m.indexOf("/한일") == 0){r.reply(Api.papagoTranslate("ko", "ja", r.m.substr(3), 1));}
-	if(r.m.indexOf("/일한") == 0){r.reply(Api.papagoTranslate("ja", "ko", r.m.substr(3), 1));}
-	if(r.m.indexOf("/영일") == 0){r.reply(Api.papagoTranslate("en", "ja", r.m.substr(3), 1));}
-	if(r.m.indexOf("/일영") == 0){r.reply(Api.papagoTranslate("ja", "en", r.m.substr(3), 1));}
-	if(r.m.indexOf("/한중") == 0){
-		r.reply("간체 : "+Api.papagoTranslate("ko", "zh-TW", r.m.substr(3), 1));
-		r.reply("번체 : "+Api.papagoTranslate("ko", "zh-CN", r.m.substr(3), 1));
-	}
-	if(r.m.indexOf("/중한") == 0){r.reply(Api.papagoTranslate("zh-CN", "ko", r.m.substr(3), 1));}
-	if(r.m.indexOf("/한프") == 0){r.reply(Api.papagoTranslate("ko", "fr", r.m.substr(3), 1));}
-	if(r.m.indexOf("/프한") == 0){r.reply(Api.papagoTranslate("fr", "ko", r.m.substr(3), 1));}
-	if(r.m.indexOf("/한스") == 0){r.reply(Api.papagoTranslate("ko", "es", r.m.substr(3), 1));}
-	if(r.m.indexOf("/스한") == 0){r.reply(Api.papagoTranslate("es", "ko", r.m.substr(3), 1));}
-	if(r.m.indexOf("/한인") == 0){r.reply(Api.papagoTranslate("ko", "id", r.m.substr(3), 1));}
-	if(r.m.indexOf("/인한") == 0){r.reply(Api.papagoTranslate("id", "ko", r.m.substr(3), 1));}
-	if(r.m.indexOf("/한태") == 0){r.reply(Api.papagoTranslate("ko", "th", r.m.substr(3), 1));}
-	if(r.m.indexOf("/태한") == 0){r.reply(Api.papagoTranslate("th", "ko", r.m.substr(3), 1));}
-	if(r.m.indexOf("/한베") == 0){r.reply(Api.papagoTranslate("ko", "vi", r.m.substr(3), 1));}
-	if(r.m.indexOf("/베한") == 0){r.reply(Api.papagoTranslate("vi", "ko", r.m.substr(3), 1));}
-
-	*/
-
-//===================================================================================================================================
 
 
 		if(room=="공지확인방"){
@@ -1382,71 +1240,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 			}
 		}
 
-		/*
-	if(msg=="/시간표상세검색"){
-		r.reply("'/기능 시간표상세검색'을 입력하여 메뉴얼을 확인해주세요")
-	}
-	else if(msg.indexOf("/시간표상세검색")==0){
-		var Num = Number(msg.substr(9))
-		var str = ""
-		var str2 = ""
-		var str3 = ""
-		if(Num%1==0){
-			try{
-				var search_nm = getDB("search_detail_"+sender+"_"+room).split("||")[Num-1]
-				var selected_DB = D.selectForArray("UOSTime",null,"DB_번호 is ?",search_nm)
-				str += "교과목명 : "+selected_DB[0][8]+"\n"
-				str += "담당교수님 : "+selected_DB[0][11]+"교수님\n"
-				str += "강의실 및 시간 : "+selected_DB[0][14]+"\n"
-				str += "교과번호 및 분반 : "+selected_DB[0][6]+"("+selected_DB[0][7]+"분반)\n"
-				str += "학과 : "+selected_DB[0][3]+"\n"
-				str += "교과구분 : "+selected_DB[0][4]+"("+selected_DB[0][5]+")\n"
-				str += "학년 : "+selected_DB[0][9]+"\n"
-				str += "학점 : "+selected_DB[0][10]+"\n"
-				if(selected_DB[0][13]==""){
-					str += "외국어강의여부 : N"
-				}
-				else{
-					str += "외국어강의여부 : Y"
-				}
-
-				var coursePlan = String(org.jsoup.Jsoup.connect("http://wise.uos.ac.kr/uosdoc/api.ApiApiCoursePlanView.oapi?apiKey=201808506NVF93269&year=2019&term=A10&subjectNo="+selected_DB[0][6]+"&classDiv="+selected_DB[0][7]).get().select("class_cont"))
-				var coursePlanLength = coursePlan.split("<class_cont><![CDATA[").length
-
-				for(var i=0 ; i<coursePlanLength-1 ; i++){
-					str2 += (i+1)+"주차:"+coursePlan.split("<class_cont><![CDATA[")[i+1].split("]")[0].replace(/\r/g,"").replace(/\n/g,"")+"\n"
-				}
-				str3 = String(org.jsoup.Jsoup.connect("http://wise.uos.ac.kr/uosdoc/api.ApiApiCoursePlanView.oapi?apiKey=201808506NVF93269&year=2019&term=A10&subjectNo="+selected_DB[0][6]+"&classDiv="+selected_DB[0][7]).get().select("score_eval_rate")).split("<score_eval_rate><![CDATA[")[1].split("]]>")[0].replace(/\t/g,"").split("□ ").join("\n□")
-
-				r.reply(str)
-				r.reply(str3)
-				r.reply(str2)
-
-
-				/* form 예시
-				교과목명 : 전자전기컴퓨터종합설계
-				담당교수님 : 이승환교수님
-				강의실 및 시간 : 수05,06,07,08,09/19-213/214
-				교과번호 및 분반 : 40138(02분반)
-				학과 : 전자전기컴퓨터공학부
-				교과구분 : 전공선택(전공선택)
-				학년 : 4
-				학점 : 3
-				외국어강의여부 : N
-				*/
-		/*
-			}
-			catch(e){
-				r.reply("올바른 번호를 입력해주세요")
-			}
-
-		}
-		else{
-			r.reply("올바른 번호를 입력해주세요")
-		}
-	}
-	*/
-
 //=============================================================================================================================================
 
 
@@ -1469,22 +1262,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 		else if(msg.indexOf("/학사공지")==0&&msg.indexOf("/학사공지링크")!=0){
 			UOSP3_list(r)
 		}
-
-		/* 미구현
-		if(room=="공지확인방"){
-		}
-		else if(msg.indexOf("/장학공지")==0&&msg.indexOf("/장학공지링크")!=0){
-			UOSP4_list(r)
-		}
-		*/
-
-		/* 미구현
-		if(room=="공지확인방"){
-		}
-		else if(msg.indexOf("/취창업공지")==0&&msg.indexOf("/취창업공지링크")!=0){
-			UOSP5_list(r)
-		}
-		*/
 
 		if(room=="공지확인방"){
 		}
@@ -1900,182 +1677,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 
 
-//=====================================================================================================================================
-//==============================================    기능    ============================================================================
-//=====================================================================================================================================
-
-		// 분당 경고기능 일반화
-
-		var TMI_Name = getDB("TMI_List")
-		if(TMI_Name.includes(sender)||r.s.includes("고1")){
-			if(nowminute!=getNum("TMI_last_"+sender)){ // 마지막으로 말한 분과 현재 분이 다를 경우
-				setDB("TMI_"+sender,"1");
-				setDB("TMI_last_"+sender,nowminute); // 마지막으로 말한 분 재설정
-			}
-			else if(nowminute==getNum("TMI_last_"+sender)&&getNum("TMI_"+sender)<10){ // 분당 대화량 10 미만
-				setDB( "TMI_"+sender , getNum("TMI_"+sender)+1 );
-				setDB( "TMI_last_"+sender ,nowminute ); // 마지막으로 말한 분 재설정
-			}
-			else if(nowminute==getNum("TMI_last_"+sender)&&getNum("TMI_"+sender)<30){ // 분당대화량 10~30
-				setDB( "TMI_"+sender , getNum("TMI_"+sender)+1 );
-				setDB( "TMI_last_"+sender ,nowminute ); // 마지막으로 말한 분 재설정
-				if(getNum("TMI_"+sender)%5==1){
-					replier.reply("주의 : "+sender+" 분당 TMI횟수 - "+(getNum("TMI_"+sender)-1)+"회");   				 }
-			}
-			else if(nowminute==getNum("TMI_last_"+sender)&&getNum("TMI_"+sender)>29){ // 분당대화량 30이상
-				setDB( "TMI_"+sender , getNum("TMI_"+sender)+1 );
-				setDB( "TMI_last_"+sender ,nowminute ); // 마지막으로 말한 분 재설정
-				if(getNum("TMI_"+sender)%3==1){
-					replier.reply("경고 : "+sender+" 분당 TMI횟수 - "+(getNum("TMI_"+sender)-1)+"회");
-				}
-			}
-		}
-
-
-
-
-//==================================================================================================================================
-//===================================      시갤톡        ===========================================================================
-//==================================================================================================================================
-
-		if(msg=="/혼독체교정 ON"){
-			setDB("hondok","ON")
-		}
-		if(msg=="/혼독체교정 OFF"){
-			setDB("hondok","OFF")
-		}
-
-
-		if(room=="시갤톡방"&&getDB("hondok")=="ON"&&msg.indexOf("솦")>-1){
-			r.reply("솦?")
-		}
-		else if(room=="시갤톡방"&&getDB("hondok")=="ON"&&msg.indexOf("딸라")>-1&&msg.indexOf("사딸라")<0){
-			r.reply("딸라?")
-		}
-		else if(room=="시갤톡방"&&getDB("hondok")=="ON"&&msg.indexOf("무솦히")>-1){
-			r.reply("무솦히?")
-		}
-		else if(room=="시갤톡방"&&getDB("hondok")=="ON"&&msg.indexOf("무솦")>-1){
-			r.reply("무솦?")
-		}
-		else if(room=="시갤톡방"&&getDB("hondok")=="ON"&&msg.indexOf("한따")>-1){
-			r.reply("한따?")
-		}
-
-		/*
-	if(msg=="/혼독체교정 ON"){
-		setDB("hondok_"+sender,"ON")
-		setDB("hondok_counter_"+sender,0)
-		setDB("nohondok_counter_"+sender,0)
-		r.reply("혼독체 교정 시작")
-	}
-	else if(msg=="/혼독체교정 OFF"){
-		setDB("hondok_"+sender,"OFF")
-		r.reply("혼독체 교정 종료")
-	}
-
-	if(room=="시갤톡방"&&getDB("hondok_"+sender)=="ON"){
-		if(msg.indexOf("이릴")>-1||msg.indexOf("이리리")>-1){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.indexOf("앞하")>-1){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.indexOf("솦")>-1){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.indexOf("짲응")>-1){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg=="ㅋ"){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg=="엊"){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg=="닥"){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.split("")[0]=="비"||msg.split("")[msg.length-1]=="비"){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.split("")[msg.length-1]=="ㅋ"&&msg.split("")[msg.length-2]!="ㅋ"){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.split("")[msg.length-1]=="햐"||msg.split("")[msg.length-1]=="효"){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.split("")[msg.length-1]=="따"){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.split("")[msg.length-1]=="짜"){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.split("")[msg.length-1]=="샤"){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.indexOf("앞하")>-1||msg.indexOf("앞")>-1){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.indexOf("아딸라")>-1||msg.indexOf("어딸라")>-1||msg.indexOf("해딸라")>-1){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else if(msg.indexOf("깊하")>-1){
-			setDB("hondok_counter_"+sender,getNum("hondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-		else{
-			setDB("nohondok_counter_"+sender,getNum("nohondok_counter_"+sender)+1)
-			r.reply("경고 : "+sender+" 혼독체 감지")
-		}
-
-
-		if(getNum("hondok_counter_"+sender)%10==0&&getNum("hondok_counter_"+sender)!=0){
-			r.reply("경고 : +sender+의 혼독체 사용횟수 - "+getNum("hondok_counter_"+sender)+"회")
-		}
-	}
-
-	if(msg=="/혼독체비율"&&setDB("hondok_"+sender,"ON")){
-		str = ""
-		str += "====="+sender+"의 혼독체 사용량=====\n"
-		str += "정상대화 : "+getNum("nohondok_counter_"+sender)+"\n"
-		str += "혼독체사용대화 : "+getNum("hondok_counter_"+sender)+"\n"
-		var hondokRate = getNum("hondok_counter_"+sender) / ( getNum("hondok_counter_"+sender) + getNum("nohondok_counter_"+sender) )
-		str += "혼독체사용비율 : "+Number(hondokRate)*100+"%"
-		}
-	*/
-
-
-//==================================================================================================================================
-//===================================      채팅존        ===========================================================================
-//==================================================================================================================================
-
-		var IPA_temp = [];
-		if(msg=="/텔레칩스"){
-			IPA_temp = stock_general_parse("telechips-inc")
-			IPA_temp[1] = IPA_temp[1].replace(",","")
-			IPA_temp[4] = (getNum("IPA_stock_price") - IPA_temp[1])*getNum("IPA_stock_num")
-			IPA_temp[5] = ((getNum("IPA_stock_price") - IPA_temp[1])/(getNum("IPA_stock_price"))) * getNum("IPA_stock_num")
-			IPA_temp[5] = IPA_temp[5].toFixed(2)
-			r.reply("이파는 텔레칩스에 "+getNum("IPA_stock_price")*getNum("IPA_stock_num")+"원을 꼬라박아 "+IPA_temp[4]+"원("+IPA_temp[5]+"%)의 손실을 보았습니다.")
-		}
-
-		/*A*/
 
 //==================================================================================================================================
 //===================================      주식톡        ===========================================================================
@@ -2182,29 +1783,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 //==================================================================================================================================
 //==================================================================================================================================
 
-// ----------------------------------------------------------------------------------------------------------
-		/*
-	if(msg.indexOf("이릴히")!=-1&&room=="시갤톡방"){r.intervalReply("이릴히","이릴히...",30)}
-	else if(msg.indexOf("이릴")!=-1&&room=="시갤톡방"){r.intervalReply("이릴","이릴...",30)}
-	if(msg.indexOf("이리리")!=-1&&room=="시갤톡방"){r.intervalReply("이리리","이리리...",30)}
-	if(msg.indexOf("깊하")!=-1&&room=="시갤톡방"){replier.reply("깊하")}
-	if(msg.indexOf("솦하")!=-1&&room=="시갤톡방"){replier.reply("솦하...")}
-	if(msg.indexOf("조하")!=-1&&room=="시갤톡방"){replier.reply("조하")}
-	if(msg.indexOf("엊닥솦")!=-1&&room=="시갤톡방"){replier.reply("엊닥솦~~")}
-	else if(msg.indexOf("엊")!=-1&&room=="시갤톡방"){replier.reply("엊쩔~~")}
-	if(msg.indexOf("고기")<0&&msg.indexOf("퍽퍽")!=-1&&room=="시갤톡방"){r.intervalReply("퍽퍽",randReply("시립봇도 같이때린따? 퍽퍽","혼똑 때리짜? 퍽퍽","시립봇도 혼똑 때린따? 퍽퍽"),18)}
-	if(msg.indexOf("앞하")!=-1&&room=="시갤톡방"){replier.reply("퍽퍽")}
-	*/
-
-// ----------------------------------------------------------------------------------------------------------
-		//안되
-		/*
-		if(msg.substring(msg.length-2,msg.length)=="안되"||msg.indexOf("안되 ")!=-1){
-			replier.reply("안되(X) -> 안돼(O)")
-		}
-		*/
-
-// ----------------------------------------------------------------------------------------------------------
 
 		//섹무새
 		if(r.s=="ㅇㅅㅁ"&&msg=="섹섹섹섹"){replier.reply("스스스스")}
@@ -2220,16 +1798,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 //==================================================================================================================================
 
 
-		//밴코드
-		if(msg.indexOf("/10분밴")==0&&sender=="슈발베"){
-			Api.replyRoom("시갤톡방",msg.substring(6)+" 10분밴 적용\n"+Utils.getDate())
-
-		}
-
-		if(msg.indexOf("/1시간밴")==0&&sender=="슈발베"){
-			Api.replyRoom("시갤톡방",msg.substring(6)+" 1시간밴 적용\n"+Utils.getDate())
-		}
-
 		//냥냥댁솦생성기(갓기능)
 		if(msg.indexOf("/냥냥댁솦")==0||msg.indexOf("/ㄴㄴㄷㅅ")==0){
 			for(var j=0; j<msg.substring(6); j++){
@@ -2243,129 +1811,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 		}
 
 
-
-		// 말많은놈 카운터
-		if ((msg=="/꿈나무카운터"||msg=="/꿈카"||msg=="/ㄲㅋ")&&(r.s.includes("고1")||r.s==("슈발베")||r.s==("이파")||r.s==("시립죄"))) {
-			setDB("dream_cnt",getNum("dream_cnt")+3)
-			replier.reply("꿈나무카운터:" + getNum("dream_cnt"));
-		}
-		else if (msg=="/꿈나무카운터"||msg=="/꿈카"||msg=="/ㄲㅋ") {
-			replier.reply("꿈나무카운터:" + getNum("dream_cnt"));
-		}
-
-
-		if (nowhour==0&&dayV==0){ // 매일 0시에 초기화 코드
-			setDB("dream_cnt",80);
-			dayV=1;
-			setDB("KKban","0")
-		}
-		if (nowhour!=0&&dayV==1){
-			dayV=0;
-		}
-
-		if(msg=="/카운트업"&&sender=="슈발베"){
-			setDB("dream_normal",getNum("dream_normal")+1)
-			Api.replyRoom("시갤톡방","꿈나무 카운터 증가량 : "+getDB("dream_normal"))
-		}
-		if(msg=="/카운트다운"&&sender=="슈발베"){
-			setDB("dream_normal",getNum("dream_normal")-1)
-			Api.replyRoom("시갤톡방","꿈나무 카운터 증가량 : "+getDB("dream_normal"))
-		}
-
-		if (r.s.includes("고1")&&dream_status=="normal") {
-			setDB("dream_cnt",getNum("dream_cnt")+getNum("dream_normal"));
-			if(getNum("dream_cnt")<1000&&getNum("dream_cnt")>900&&getNum("dream_cnt")%20==1){
-				Api.replyRoom("시갤톡방","경고 : 고1꿈나무 일일 TMI횟수 - "+(getNum("dream_cnt")-1)+"회");
-			}
-		}
-		else if (r.s.includes("고1")&&dream_status=="selfStudy") {
-			setDB("dream_cnt",getNum("dream_cnt")+getNum("dream_normal")+getNum("dream_selfStudy"));
-			if(getNum("dream_cnt")<1000&&getNum("dream_cnt")>900&&getNum("dream_cnt")%20==1){
-				Api.replyRoom("시갤톡방","경고 : 고1꿈나무 일일 TMI횟수 - "+(getNum("dream_cnt")-1)+"회");
-			}
-		}
-		else if (r.s.includes("고1")&&dream_status=="Study") {
-			setDB("dream_cnt",getNum("dream_cnt")+getNum("dream_normal")+getNum("dream_Study"));
-			if(getNum("dream_cnt")<1000&&getNum("dream_cnt")>900&&getNum("dream_cnt")%20==1){
-				Api.replyRoom("시갤톡방","경고 : 고1꿈나무 일일 TMI횟수 - "+(getNum("dream_cnt")-1)+"회");
-			}
-		}
-
-		if(getNum("dream_cnt")>999&&getNum("KKban")==0){
-			Api.replyRoom("시갤톡방","경고 : 고1꿈나무 일일 TMI횟수 - 1000회");
-			Api.replyRoom("시갤톡방","고1꿈나무 하루밴 적용\n"+Utils.getDate())
-			setDB("KKban","1")
-		}
-
-		//포상
-		if (msg=="/포상"&&(r.s.includes("고1")||r.s==("슈발베")||r.s==("이파")||r.s==("시립죄"))) {
-			setDB("dream_cnt",getNum("dream_cnt")-5)
-			replier.reply("꿈나무카운터:" + getNum("dream_cnt"));
-		}
-
-
-		//노래 카운터
-		if (msg=="/노래카운터"&&getNum("dream_cnt_sing")<2&&(r.s==("슈발베")||r.s==("이파")||r.s==("시립죄"))) {
-			setDB("dream_cnt_sing",getNum("dream_cnt_sing")+1)
-			replier.reply("꿈나무 노래 카운터 : " + getNum("dream_cnt_sing"));
-		}
-		else if (msg=="/노래카운터"&&(r.s==("슈발베")||r.s==("이파")||r.s==("시립죄"))) {
-			setDB("dream_cnt_sing","0")
-			Api.replyRoom("시갤톡방","고1꿈나무 30분밴 적용\n"+Utils.getDate())
-		}
-		//김인호 추가
-		if(msg.indexOf("/김인호")==0&&msg.indexOf("/김인호단어")!=0){
-			var KIH_temp = getDB("김인호")
-			KIH_temp += "||"+msg.substring("5")
-			setDB("김인호",KIH_temp)
-		}
-
-		//김인호 단어 추가
-		if(msg.indexOf("/김인호단어")==0){
-			var KIH_temp = getDB("김인호단어")
-			KIH_temp += "||"+msg.substring("7")
-			setDB("김인호단어",KIH_temp)
-		}
-
-		//김인호 카운터
-		if(getDB("김인호").split("||").includes(sender)){
-			for(var i=0;i<getDB("김인호단어").split("||").length;i++){
-				if(msg.replace(/[^가-힣|]/g,"").indexOf(getDB("김인호단어").split("||")[i])>-1){
-					if(getNum("김인호카운터")<5){
-						setDB("김인호카운터",getNum("김인호카운터")+1)
-						Api.replyRoom("시갤톡방","김인호 헛소리 카운터 : "+getDB("김인호카운터"))
-					}
-				}
-				else if(getNum("김인호카운터")>4){
-					setDB("김인호카운터",0)
-					Api.replyRoom("시갤톡방","김인호 하루밴 적용\n"+Utils.getDate())
-				}
-			}
-		}
-
-
-		//도청기능
-		if(room=="서울시립대학교"){
-			Api.replyRoom("도청방1",sender+" : "+msg)
-		}
-
-
-		//자이하르기능
-		if(room=="봇장난"&&msg=="/자이하르"){
-			var str_ZYHR = ""
-			var temp_ZYHR = ""
-			for(var i=0 ; i<getZNum("ZCount") ; i++){
-				temp_ZYHR = getZDB( "ZYHR"+ (getZNum("ZCount")-i-1) )
-				str_ZYHR += temp_ZYHR.split("||")[0] + "||" + temp_ZYHR.split("||")[1] + "||" + temp_ZYHR.split("||")[2] +"\n"
-			}
-			r.reply(str_ZYHR.replaceAmp())
-		}
-		else if(msg=="/자이하르"){
-			r.reply("'/자이하르 [조회를 원하는 날짜]'를 입력하시면 자이하르가 그날 수갤에 글을 몇개 썼는지 알 수 있습니다.\nex>/자이하르 2018.08.30, /자이하르 08.30")
-		}
-		else if(msg.indexOf("/자이하르")==0){
-			r.reply(msg.substring(6)+" 하루동안 자이하르가 수능갤러리에 "+searchZYHRDB(msg.substring(6))+"개의 글을 썼습니다.")
-		}
 		//오목
 		if(msg.indexOf("/오목대결")==0 && (!omokRoom.includes(room))) {
 			omokRoom.push(room)
@@ -2382,552 +1827,6 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 
 
-
-
-
-
-//=====================================================================================================================================
-//==============================================    밴항의방기능    ===================================================================
-//=====================================================================================================================================
-
-		if(room=="봇장난"&&msg=="/커맨드 밴항의방"){
-			r.reply("/밴 [닉네임]\n/밴해제 [닉네임]\n/밴리스트\n/밴사유 [닉네임]\\n사유\n/밴기간 [닉네임]\\n기간");
-		}
-
-		var banList = getDB("banList")
-		var banListTemp = ""
-		//밴명령어조회
-		if(msg=="/밴명령어"&& room == "봇장난"){
-			r.reply("/밴 [닉네임]\n/밴해제 [닉네임]\n/밴리스트\n/밴사유 [닉네임]\\n사유\n/밴기간 [닉네임]\\n기간")
-		}
-		//밴추가
-		else if(msg.split(" ")[0]=="/밴" && room == "봇장난" && msg!="/밴" && msg!="/밴 "){
-			banList += "||"+msg.substring(3)
-			setDB("banList",banList)
-			r.reply(msg.substring(3).을를()+" 밴리스트에 추가했습니다.")
-		}
-		//밴해제
-		else if( msg.split(" ")[0]=="/밴해제" && room == "봇장난" ){
-			banList = banList.split("||")
-			banList = banList.filter( function(x) { return x != msg.substring(5) } )
-			banList = banList.join("||")
-			setDB("banList",banList)
-			r.reply(msg.substring(5).을를()+" 밴리스트에 제외했습니다.")
-		}
-		//밴목록
-		else if( (msg=="/밴목록"||msg=="/밴리스트") && room == "봇장난" ){
-			banList = banList.split("||")
-			for(var i=0 ; i<banList.length ; i++){
-				if(getDB("banWhy"+banList[i])==undefined){setDB("banWhy"+banList[i],"")}
-				if(getDB("banDate"+banList[i])==undefined){setDB("banDate"+banList[i],"")}
-				banListTemp += (i+1)+"."+banList[i]+" : "+getDB("banWhy"+banList[i])+" : "+getDB("banDate"+banList[i])+"\n"
-			}
-			r.reply(banListTemp)
-		}
-		//밴사유
-		else if( msg.split(" ")[0]=="/밴사유" && room == "봇장난" ){
-			setDB( "banWhy"+msg.split("\n")[0].substring(5) , msg.split("\n")[1] )
-			r.reply(msg.split("\n")[0].substring(5)+"의 밴사유가 입력되었습니다.\n사유 : "+msg.split("\n")[1])
-		}
-		//밴기간
-		else if( msg.split(" ")[0]=="/밴기간" && room == "봇장난" ){
-			setDB( "banDate"+msg.split("\n")[0].substring(5) , msg.split("\n")[1] )
-			r.reply(msg.split("\n")[0].substring(5)+"의 밴기간이 입력되었습니다.\n기간 : "+msg.split("\n")[1])
-		}
-
-		var banList = getDB("banList")
-		if(banList.split("||").indexOf(room)>-1){
-			//if(banList.I(room)){
-			if(msg.F("1")&&getNum(sender+"BanMenu")==0){
-				if(getDB("banWhy"+sender)==undefined||getDB("banDate"+sender)==undefined){
-					r.reply("아직 관리자가 밴 정보를 입력하지 않았습니다. 잠시 후 다시 시도해주시기 바랍니다.")
-					Api.replyRoom("봇메시지함",sender+"가 밴사유를 열람했습니다. (밴정보 입력 안됨)")
-					Api.replyRoom("봇장난",sender+"가 밴사유를 열람했습니다. (밴정보 입력 안됨)")
-					return 0;
-				}
-				else{
-					r.reply("밴사유 : "+getDB("banWhy"+sender)+", 밴기간 : "+getDB("banDate"+sender))
-					Api.replyRoom("봇메시지함",sender.이가()+" 밴사유를 열람했습니다.")
-					Api.replyRoom("봇장난",sender.이가()+" 밴사유를 열람했습니다.")
-					return 0;
-				}
-			}
-			else if(msg.F("2")&&getNum(sender+"BanMenu")==0){
-				r.reply("지금부터 하는 대화는 시립봇 밴 항의 데이터베이스에 입력됩니다. 초기메뉴로 돌아가고싶으시면 '/취소'를 입력해주세요")
-				setDB(sender+"BanMenu","1")
-				return 0;
-			}
-			else if(getNum(sender+"BanMenu")==1&&msg=="/취소"){
-				setDB(sender+"BanMenu","0")
-				r.reply("자동응답 : 원하시는 기능에 해당하는 숫자를 눌러주세요.\n1.밴사유확인 2.항소")
-				return 0;
-			}
-			else if(getNum(sender+"BanMenu")==1&&
-				(msg=="풀어달라"||msg=="풀어딸라"||msg=="풀어주세요"||msg=="풀어줘요"||msg=="풀어줘"||msg=="풀어쭤"||msg=="풀어"||msg=="풀어요"
-					||msg=="밴풀어달라"||msg=="밴풀어딸라"||msg=="밴풀어주세요"||msg=="밴풀어줘요"||msg=="밴풀어줘"||msg=="밴풀어쭤"||msg=="밴풀어"||msg=="밴풀어요"
-					||msg=="밴 풀어달라"||msg=="밴 풀어딸라"||msg=="밴 풀어주세요"||msg=="밴 풀어줘요"||msg=="밴 풀어줘"||msg=="밴 풀어쭤"||msg=="밴 풀어"||msg=="밴 풀어요")
-			){
-				Api.replyRoom("봇메시지함",sender+"의 밴항의 : "+msg)
-				Api.replyRoom("봇장난",sender+"의 밴항의 : "+msg)
-				r.intervalReply("밴항의","자동응답 : 단순히 밴을 풀어달라는 말보다는 밴을 풀어야하는 이유를 구체적으로 설명하는게 더 도움이됩니다. 자신이 밴 당한 이유에 대한 구체적인 진술과 반성 또는 반론을 해주세요.",8)
-				return 0;
-			}
-			else if(getNum(sender+"BanMenu")==1){
-				Api.replyRoom("봇메시지함",sender+"의 밴항의 : "+msg)
-				Api.replyRoom("봇장난",sender+"의 밴항의 : "+msg)
-				return 0;
-			}
-			else{
-				r.reply("자동응답 : 원하시는 기능에 해당하는 숫자를 눌러주세요.\n1.밴사유확인 2.항소")
-				return 0;
-			}
-		}
-		/*
-	else if(!roomList.I(room)){
-		r.reply("해당 닉네임에 밴 정보가 입력되지 않았습니다. 밴 당시의 닉네임으로 닉네임을 재설정해주세요.")
-		Api.replyRoom("봇장난",sender+"의 밴항의방 메시지 : "+msg+"(밴정보 없음)")
-		Api.replyRoom("봇메시지함",sender+"의 밴항의방 메시지 : "+msg+"(밴정보 없음)")
-	}
-	*/
-//=====================================================================================================================================
-//==============================================    밴항의방기능    ===================================================================
-//=====================================================================================================================================
-
-//=====================================================================================================================================
-//==============================================    격리방기능    ===================================================================
-//=====================================================================================================================================
-
-		var KK_random = Math.floor(Math.random() * getNum("KK_random") )
-
-		if(room=="봇장난"&&msg=="/커맨드 격리방"){
-			var str_command = "";
-			str_command += "/송신온(오프) : KKswitchT (시갤방->격리방)\n";
-			str_command += "/수신온(오프) : KKswitchR (격리방->시갤방)\n";
-			str_command += "/자동수신온(오프) : KKswitchAuto\n";
-			str_command += "/익명온(오프) : Switch_익명\n";
-			str_command += "/격리방번역온(오프) : Switch_번역\n";
-			str_command += "/격리방암호화온(오프) : Switch_암호화\n";
-			str_command += "/격리방상태\n";
-			str_command += "/격리방카운트 [숫자]\n";
-			str_command += "/대출 [숫자]\n";
-			str_command += "====== DB ======\n";
-			str_command += "Count_격리방_setting : "+getDB("Count_격리방_setting")+"\n";
-			str_command += "Count_격리방 : "+getDB("Count_격리방")+"\n";
-			str_command += "Count_격리방_sub : "+getDB("Count_격리방_sub")+"\n";
-			str_command += "Count_상승량 : "+getDB("Count_상승량")+"\n";
-			str_command += "Count_대출 : "+getDB("Count_대출")+"\n";
-			str_command += "KK_random : "+getDB("KK_random")+"\n";
-			str_command += "격리방번역1 : "+getDB("격리방번역1")+"\n";
-			str_command += "격리방번역2 : "+getDB("격리방번역2")+"\n";
-			str_command += "격리방암호화상태 : "+getDB("Switch_암호화")+"\n";
-			str_command += "분당 대화 제한 : "+getDB("KK_minute")+"\n";
-			str_command += "마지막으로 말한 시간 : "+getDB("KK_lastminute")+"\n";
-			str_command += "Switch_lastTalk : "+getDB("Switch_lastTalk")+"\n"; // 고꿈이 오래 안말했을때 전송기능 끄는 기능
-			str_command += "================\n";
-			if(getNum("Count_격리방")<30){str_command += "소득세율 : 0.02\n";}
-			else if(getNum("Count_격리방")<50){str_command += "소득세율 : 0.05\n";}
-			else if(getNum("Count_격리방")<100){str_command += "소득세율 : 0.12\n";}
-			else if(getNum("Count_격리방")<200){str_command += "소득세율 : 0.25\n";}
-			else if(getNum("Count_격리방")<300){str_command += "소득세율 : 0.3\n";}
-			else if(getNum("Count_격리방")<500){str_command += "소득세율 : 0.4\n";}
-			else{str_command += "소득세율 : 0.5\n";}
-			str_command += "격리방상수 : "+( (getNum("Count_상승량")+0.5*getNum("KK_random"))/getNum("Count_격리방_setting") );
-
-
-			r.reply(str_command);
-		}
-
-		if(room=="봇장난"&&msg=="/송신온"){
-			setDB("KKswitchT","ON")
-			r.reply("송신온(시갤방->격리방)")
-			Api.replyRoom("격리방","송신온(시갤방->격리방)")
-			Api.replyRoom("시갤톡방","송신온(시갤방->격리방)")
-		}
-		if(room=="봇장난"&&msg=="/송신오프"){
-			setDB("KKswitchT","OFF")
-			r.reply("송신오프(시갤방->격리방)")
-			Api.replyRoom("격리방","송신오프(시갤방->격리방)")
-			Api.replyRoom("시갤톡방","송신오프(시갤방->격리방)")
-		}
-		if(room=="봇장난"&&msg=="/수신온"){
-			setDB("KKswitchR","ON")
-			r.reply("수신온(격리방->시갤방)")
-			Api.replyRoom("격리방","수신온(격리방->시갤방)")
-			Api.replyRoom("시갤톡방","수신온(격리방->시갤방)")
-		}
-		if(room=="봇장난"&&msg=="/수신오프"){
-			setDB("KKswitchR","OFF")
-			r.reply("수신오프(격리방->시갤방)")
-			Api.replyRoom("격리방","수신오프(격리방->시갤방)")
-			Api.replyRoom("시갤톡방","수신오프(격리방->시갤방)")
-		}
-		if(room=="봇장난"&&msg=="/익명온"){
-			setDB("Switch_익명","ON")
-			r.reply("익명전환")
-		}
-		if(room=="봇장난"&&msg=="/익명오프"){
-			setDB("Switch_익명","OFF")
-			r.reply("익명해제")
-		}
-		if(room=="봇장난"&&msg=="/격리방번역온"){
-			setDB("Switch_번역","ON")
-			r.reply("번역온")
-		}
-		if(room=="봇장난"&&msg=="/격리방번역오프"){
-			setDB("Switch_번역","OFF")
-			r.reply("번역오프")
-		}
-		if(room=="봇장난"&&msg=="/격리방암호화온"||(room=="시갤톡방"&&sender=="슈발베"&&msg=="/격리방암호화오프")){
-			setDB("Switch_암호화","ON")
-			r.reply("암호화온")
-			Api.replyRoom("시갤톡방","격리방 암호화 온")
-		}
-		if(room=="봇장난"&&msg=="/격리방암호화오프"||(room=="시갤톡방"&&sender=="슈발베"&&msg=="/격리방암호화오프")){
-			setDB("Switch_암호화","OFF")
-			r.reply("오프")
-			Api.replyRoom("시갤톡방","격리방 암호화 오프")
-		}
-		if(room=="격리방"&&msg.indexOf("/대출")==0){
-			if(Number(msg.substring(4))<0){
-			}
-			else if(getNum("Count_격리방")-10-Math.ceil(1.2*Number(msg.substring(4)))>-500){
-				setDB("Count_대출",getNum("Count_대출")+Number(msg.substring(4)))
-				setDB("Count_격리방",getNum("Count_격리방")-10-Math.ceil(1.2*Number(msg.substring(4))))
-				r.reply(msg.substring(4)+"이 대출되었습니다")
-			}
-			else{
-				r.reply("더이상 대출을 받을 수 없습니다.")
-			}
-		}
-
-		// ======================== 분당 대화수 제한 기능 =============================
-
-		if(getDB("KK_lastminute")!=nowminute&&getNum("KK_minute")>9){
-			setDB("KK_minute",0)
-			Api.replyRoom("격리방","분당 대화수 초기화 완료!")
-		}
-		else if(getDB("KK_lastminute")!=nowminute){
-			setDB("KK_minute",0)
-		}
-
-		// ======================== 10분 지날시 기능 오프 기능 =============================
-
-		if(room=="격리방"&&sender.indexOf("고2")==0){ // 고꿈이 마지막으로 말한 시간 저장
-			KKlastTime = currentTime
-		}
-		if(currentTime-KKlastTime>300000){ // 고꿈이 10분이상 말하지 않았을 경우 격리방으로 전송 OFF (리소스관리)
-			setDB("Switch_lastTalk","OFF")
-		}
-		if(getDB("Switch_lastTalk")=="OFF"&&room=="격리방"&&sender.indexOf("고2")==0){ // 고꿈이 말했을 경우 다시 스위치 ON
-			setDB("Switch_lastTalk","ON")
-		}
-
-		// ======================== 시끄러울때 일시 중지 기능 =============================
-
-		if(getDB("Switch_shutup")=="ON"&&currentTime-getNum("KKshutup")>180000){ // 5분 후 풀어주는 기능
-			setDB("Switch_shutup","OFF")
-			Api.replyRoom("시갤톡방","고1꿈나무 3분간 닥침 기능 해제")
-			Api.replyRoom("격리방","system : 3분간 닥침 기능 해제")
-		}
-		if(room=="격리방"&&getDB("Switch_shutup")=="ON"){
-			Api.replyRoom("격리방","system : 3분간 닥침 기능이 활성화 되어 있습니다.")
-		}
-
-		// 격리방 -> 시갤방 켜져야 되는 스위치 : KKshutup
-		// 시갤방 -> 격리방 켜져야 되는 스위치 : Switch_lastTalk
-
-
-		// 시갤방 -> 격리방 기능 ==========================================================================================
-
-		var KKstr2 = ""
-
-		if(room=="시갤톡방"&&getDB("Switch_lastTalk")=="ON"&&getDB("KKswitchT")=="ON"&&getDB("Switch_shutup")=="OFF"){ // 시갤방 -> 격리방 (송신)
-			if(msg!="/격리방상태"&&msg.indexOf("/k")!=0){ // 전달 안되는 문구
-				if(getDB("Switch_익명")=="ON"){
-					KKstr2 += "???:"
-				}
-				else if(getDB("Switch_익명")=="OFF"){
-					KKstr2 += sender+":"
-				}
-
-				if(getDB("Switch_번역")=="ON"&&getDB("Switch_암호화")=="OFF"){
-					KKstr2 += translateText(getDB("격리방번역1"),getDB("격리방번역2"),msg).replaceAmp()
-				}
-				else if(getDB("Switch_번역")=="OFF"&&getDB("Switch_암호화")=="ON"){
-					KKstr2 += dak(msg)
-				}
-				else{
-					KKstr2 += msg
-				}
-				Api.replyRoom("격리방",KKstr2)
-			}
-		}
-
-		//  ================================================================================================================
-
-
-		//=================================================== 대출 받은 경우 ================================================
-
-		if(getNum("Count_대출")>0&&getDB("KKswitchT")=="OFF"){
-			setDB("KKswitchT","ON")
-		}
-
-		if(room=="격리방"&&getNum("Count_대출")>0&&getNum("KK_minute")<10&&getDB("Switch_shutup")=="OFF"){ // 격리방 -> 시갤방 (수신)
-			Api.replyRoom("시갤톡방",sender+" : "+msg)
-			setDB("KK_minute",getNum("KK_minute")+1)
-			setDB("Count_대출",getNum("Count_대출")-1);
-			setDB("KK_lastminute",nowminute)
-			if(getDB("서울시립대학교전달")=="ON"){
-				Api.replyRoom("서울시립대학교",msg)
-			}
-		}
-		else if(room=="격리방"&&getNum("Count_대출")>0&&getNum("KK_minute")>9){
-			Api.replyRoom("격리방","System : 분당 대화수 제한 초과!")
-		}
-
-		//=================================================== 대출 받은 경우 ================================================
-
-
-		if(getDB("KKswitchAuto")=="ON"&&getNum("Count_격리방")>0){ // 잔여량이 있을 경우 자동으로 스위치를 켜줌
-			setDB("KKswitchT","ON");
-			setDB("KKswitchR","ON");
-		}
-		if(getNum("Count_격리방")<=0&&getNum("Count_대출")<=0&&(getDB("KKswitchT")=="ON"||getDB("KKswitchR")=="ON")){ // 격리방 잔여한도 모두 소진시 스위치 꺼버림
-			setDB("KKswitchT","OFF");
-			setDB("KKswitchR","OFF");
-			Api.replyRoom("격리방","스위치 오프 (잔여한도소진)")
-			Api.replyRoom("시갤톡방","격리방 스위치 오프 (잔여한도소진)")
-		}
-
-		if(room=="격리방"&&getDB("KKswitchR")=="ON"&&getNum("Count_대출")<1&&getNum("KK_minute")<10&&getDB("Switch_shutup")=="OFF"){ // 격리방 -> 시갤방 (수신)
-			Api.replyRoom("시갤톡방",sender+" : "+msg)
-			if(getDB("서울시립대학교전달")=="ON"){
-				Api.replyRoom("서울시립대학교",msg)
-			}
-
-			if(getNum("Count_격리방")<=0){ //
-				r.reply("카운트가 모자랍니다")
-			}
-			else{ // 카운트 -1
-				setDB("Count_격리방",getNum("Count_격리방")-1);
-				setDB("KK_minute",getNum("KK_minute")+1)
-				setDB("KK_lastminute",nowminute)
-			}
-		}
-		else if(room=="격리방"&&getDB("KKswitchR")=="ON"&&getNum("Count_대출")<1&&getNum("KK_minute")>9){
-			Api.replyRoom("격리방","System : 분당 대화수 제한 초과!")
-		}
-
-
-		if((room=="격리방"||room=="시갤톡방"||room=="봇장난")&&msg=="/격리방상태"){
-			var KKstr = "";
-			if(getDB("KKswitchT")=="ON"){
-				KKstr += "시갤방 -> 격리방 : ON\n";
-			}
-			else if(getDB("KKswitchT")=="OFF"){
-				KKstr += "시갤방 -> 격리방 : OFF\n";
-			}
-			if(getDB("KKswitchR")=="ON"){
-				KKstr += "격리방 -> 시갤방 : ON\n";
-			}
-			else if(getDB("KKswitchR")=="OFF"){
-				KKstr += "격리방 -> 시갤방 : OFF\n";
-			}
-			if(getDB("Switch_번역")=="ON"){
-				KKstr += "격리방 번역 : ON\n";
-			}
-			else if(getDB("Switch_번역")=="OFF"){
-				KKstr += "격리방 번역 : OFF\n";
-			}
-			if(getDB("Switch_암호화")=="ON"){
-				KKstr += "격리방 암호화 : ON\n";
-			}
-			else if(getDB("Switch_암호화")=="OFF"){
-				KKstr += "격리방 암호화 : OFF\n";
-			}
-			KKstr += "고꿈 잔여 대화허용량 : "+getDB("Count_격리방")+"\n";
-			KKstr += "고꿈 잔여 대출량 : "+getDB("Count_대출")+"\n";
-			if(getNum("Count_격리방")<30){KKstr += "소득세율 : 0.02\n";}
-			else if(getNum("Count_격리방")<50){KKstr += "소득세율 : 0.05\n";}
-			else if(getNum("Count_격리방")<100){KKstr += "소득세율 : 0.12\n";}
-			else if(getNum("Count_격리방")<200){KKstr += "소득세율 : 0.25\n";}
-			else if(getNum("Count_격리방")<300){KKstr += "소득세율 : 0.3\n";}
-			else if(getNum("Count_격리방")<500){KKstr += "소득세율 : 0.4\n";}
-			else{KKstr += "소득세율 : 0.5\n";}
-			KKstr += "격리방상수 : "+( (getNum("Count_상승량")+0.5*getNum("KK_random"))/getNum("Count_격리방_setting") );
-			r.reply(KKstr)
-		}
-
-		if(room=="시갤톡방"){ // 시갤톡방에서 setting번 이상 말하면 격리방 카운트 +
-			setDB("Count_격리방_sub",getNum("Count_격리방_sub")+1);
-		}
-		if(getNum("Count_격리방_sub")>getNum("Count_격리방_setting")){
-			setDB("Count_격리방",getNum("Count_격리방")+getNum("Count_상승량")+KK_random);
-			setDB("Count_격리방_sub","0");
-			Api.replyRoom("격리방","System : 카운트 "+(getNum("Count_상승량")+KK_random)+"충전!")
-			setDB("KKlastUP",getNum("Count_상승량")+KK_random)
-			setDB("KKCountUp","ON")
-		}
-
-		if(room=="봇장난"&&msg.indexOf("/격리방카운트")==0){ // 격리방카운트 수동으로 올리는 기능
-			setDB("Count_격리방",getNum("Count_격리방") + Number(msg.substring(8))  );
-			Api.replyRoom("격리방","System : 카운트 "+Number(msg.substring(8))+"충전!")
-		}
-
-		if(room=="봇장난"&&msg=="/자동수신온"){
-			setDB("KKswitchAuto","ON")
-			r.reply("자동수신온")
-		}
-		if(room=="봇장난"&&msg=="/자동수신오프"){
-			setDB("KKswitchAuto","OFF")
-			r.reply("자동수신오프")
-		}
-
-		// 격리방 상수 매매기능
-
-		if(room=="격리방"&&msg=="/격리방상수판매"&&getNum("KK_random")<3&&sender.indexOf("고1")==0){
-			//r.reply("System : 더이상 판매 할 수 있는 격리방 상수가 없습니다.")
-			r.reply("사용이 불가능한 기능입니다.")
-		}
-		else if(room=="격리방"&&msg=="/격리방상수판매"&&getNum("KK_random")>=3){
-			//setDB("KK_random",getNum("KK_random")-3)
-			//setDB("Count_격리방",getNum("Count_격리방")+500)
-			//r.reply("System : 판매완료! 카운트 500 증가!")
-			r.reply("사용이 불가능한 기능입니다.")
-		}
-
-		if(room=="격리방"&&msg=="/격리방상수구매"&&getNum("Count_격리방")<500&&sender.indexOf("고1")==0){
-			//r.reply("System : 카운트가 모자랍니다!(가격 : 500카운트)")
-			r.reply("사용이 불가능한 기능입니다.")
-		}
-		else if(room=="격리방"&&msg=="/격리방상수구매"&&getNum("Count_격리방")>=500){
-			//setDB("KK_random",getNum("KK_random")+2)
-			//setDB("Count_격리방",getNum("Count_격리방")-500)
-			//r.reply("System : 구매완료! 격리방상수 증가!!")
-			r.reply("사용이 불가능한 기능입니다.")
-		}
-
-
-		if(getDB("KKLastReset")!=date.getDate()){
-			setDB("KKresetSwitch","ON")
-			setDB("KKLastReset",date.getDate())
-		}
-
-
-		if(getDB("KKresetSwitch")=="ON"){ // 재산세
-
-			if(getNum("Count_격리방")<=0){ // 서민을 위한 지지혜택
-				setDB("Count_대출",getNum("Count_대출")+50)
-				Api.replyRoom("시갤톡방","System : 특별복지혜택 : 대출카운트 50 증가!")
-				Api.replyRoom("격리방","System : 특별복지혜택 : 대출카운트 50 증가!")
-			}
-			else if(getNum("Count_격리방")<100){ // 서민을 위한 복지혜택
-				setDB("Count_대출",getNum("Count_격리방")+50)
-				Api.replyRoom("시갤톡방","System : 특별복지혜택 : 카운트 50 증가!")
-				Api.replyRoom("격리방","System : 특별복지혜택 : 카운트 50 증가!")
-			}
-
-			else if(getNum("Count_격리방")<300){
-				setDB("Count_격리방", Math.ceil(0.8*getNum("Count_격리방")) )
-				Api.replyRoom("시갤톡방","System : 고꿈카운트 재산세 "+Math.ceil(0.2*getNum("Count_격리방"))+"징수!")
-				Api.replyRoom("격리방","System : 고꿈카운트 재산세 "+Math.ceil(0.2*getNum("Count_격리방"))+"징수!")
-			}
-			else{
-				setDB("Count_격리방", Math.ceil(0.7*getNum("Count_격리방")) )
-				Api.replyRoom("시갤톡방","System : 고꿈카운트 재산세 "+Math.ceil(0.3*getNum("Count_격리방"))+"징수!")
-				Api.replyRoom("격리방","System : 고꿈카운트 재산세 "+Math.ceil(0.3*getNum("Count_격리방"))+"징수!")
-			}
-			setDB("KKresetSwitch","OFF")
-		}
-
-
-		if(getDB("KKCountUp")=="ON"){ // 소득세
-			if(getNum("Count_격리방")<30){ // 소득구간 1
-				setDB("Count_격리방",getNum("Count_격리방") - Math.ceil(0.02*getNum("KKlastUP")) )
-				Api.replyRoom("격리방","System : 소득세 "+Math.ceil(0.02*getNum("KKlastUP"))+"징수!")
-			}
-			else if(getNum("Count_격리방")<50){ // 소득구간 2
-				setDB("Count_격리방",getNum("Count_격리방") - Math.ceil(0.05*getNum("KKlastUP")) )
-				Api.replyRoom("격리방","System : 소득세 "+Math.ceil(0.05*getNum("KKlastUP"))+"징수!")
-			}
-			else if(getNum("Count_격리방")<100){ // 소득구간 3
-				setDB("Count_격리방",getNum("Count_격리방") - Math.ceil(0.12*getNum("KKlastUP")) )
-				Api.replyRoom("격리방","System : 소득세 "+Math.ceil(0.12*getNum("KKlastUP"))+"징수!")
-			}
-			else if(getNum("Count_격리방")<200){ // 소득구간 4
-				setDB("Count_격리방",getNum("Count_격리방") - Math.ceil(0.25*getNum("KKlastUP")) )
-				Api.replyRoom("격리방","System : 소득세 "+Math.ceil(0.25*getNum("KKlastUP"))+"징수!")
-			}
-			else if(getNum("Count_격리방")<300){ // 소득구간 5
-				setDB("Count_격리방",getNum("Count_격리방") - Math.ceil(0.3*getNum("KKlastUP")) )
-				Api.replyRoom("격리방","System : 소득세 "+Math.ceil(0.3*getNum("KKlastUP"))+"징수!")
-			}
-			else if(getNum("Count_격리방")<500){ // 소득구간 5
-				setDB("Count_격리방",getNum("Count_격리방") - Math.ceil(0.3*getNum("KKlastUP")) )
-				Api.replyRoom("격리방","System : 소득세 "+Math.ceil(0.4*getNum("KKlastUP"))+"징수!")
-			}
-			else{
-				setDB("Count_격리방",getNum("Count_격리방") - Math.ceil(0.5*getNum("KKlastUP")) )
-				Api.replyRoom("격리방","System : 소득세 "+Math.ceil(0.5*getNum("KKlastUP"))+"징수!")
-			}
-			setDB("KKCountUp","OFF")
-		}
-
-		if(room=="격리방"&&sender.indexOf("고1")==0&&msg=="/즉석복권"&&getNum("Count_격리방")<10){
-			r.reply("카운트가 모자랍니다.(1회당 10카운트)")
-		}
-		if(room=="격리방"&&sender.indexOf("고1")==0&&msg=="/즉석복권"&&getNum("Count_격리방")>=10){
-			setDB("Count_격리방",getNum("Count_격리방")-10);
-			if(getDB("lottery_first_trial")=="YES"){
-				Api.replyRoom("시갤톡방","System : 3등 당첨! 카운트 100 증가!")
-				Api.replyRoom("격리방","System : 3등 당첨! 카운트 100 증가!")
-				setDB("Count_격리방",getNum("Count_격리방")+100);
-				setDB("lottery_first_trial","NO")
-			}
-			else if(getDB("lottery_second_trial")=="YES"){
-				Api.replyRoom("시갤톡방","System : 4등 당첨! 카운트 50 증가!")
-				Api.replyRoom("격리방","System : 4등 당첨! 카운트 50 증가!")
-				setDB("Count_격리방",getNum("Count_격리방")+50);
-				setDB("lottery_second_trial","NO")
-			}
-			else if(Rand10000>-1&&Rand10000<1001){ // 0~1000
-				Api.replyRoom("시갤톡방","System : 5등 당첨! 카운트 20 증가!")
-				Api.replyRoom("격리방","System : 5등 당첨! 카운트 20 증가!")
-				setDB("Count_격리방",getNum("Count_격리방")+20);
-			}
-			else if(Rand10000>1000&&Rand10000<1401){ // 1001~1400
-				Api.replyRoom("시갤톡방","System : 4등 당첨! 카운트 50 증가!")
-				Api.replyRoom("격리방","System : 4등 당첨! 카운트 50 증가!")
-				setDB("Count_격리방",getNum("Count_격리방")+50);
-			}
-			else if(Rand10000>1400&&Rand10000<1501){ // 1401~1500
-				Api.replyRoom("시갤톡방","System : 3등 당첨! 카운트 100 증가!")
-				Api.replyRoom("격리방","System : 3등 당첨! 카운트 100 증가!")
-				setDB("Count_격리방",getNum("Count_격리방")+100);
-			}
-			else if(Rand10000>1500&&Rand10000<1511){ // 1501~1510
-				Api.replyRoom("시갤톡방","System : 2등 당첨! 카운트 1000 증가!")
-				Api.replyRoom("격리방","System : 2등 당첨! 카운트 1000 증가!")
-				setDB("Count_격리방",getNum("Count_격리방")+1000);
-			}
-			else if(Rand10000==1511){ // 1511
-				Api.replyRoom("시갤톡방","System : 1등 당첨! 카운트 10000 증가!")
-				Api.replyRoom("격리방","System : 1등 당첨! 카운트 10000 증가!")
-				setDB("Count_격리방",getNum("Count_격리방")+10000);
-			}
-			else{
-				Api.replyRoom("시갤톡방","System : 꽝!")
-				Api.replyRoom("격리방","System : 꽝!")
-			}
-		}
-
-
-
-
-
-//=====================================================================================================================================
-//==============================================    격리방기능    ===================================================================
-//=====================================================================================================================================
 
 //=====================================================================================================================================
 //==============================================   로깅기능    ===================================================================
@@ -2969,6 +1868,117 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 //========================================      response 함수 끝      ===================================================================
 //=======================================================================================================================================
 //=======================================================================================================================================
+
+
+// =================================== 핵식 함수 ===================================
+
+function update() {
+	timer.start();
+	Api.replyRoom(console_room_name,"updating...");
+	Git.pull("https://github.com/Schwalbe262/UOS_BOT_4","/sdcard/katalkbot/Bots/main")
+	Api.replyRoom(console_room_name,"complete");
+	var time = timer.end();
+	var msg = "time : " + java.lang.String.format("%.2f",time/1000) + "sec";
+	Api.replyRoom(console_room_name,msg);
+
+	return ""
+}
+
+function reload () { // 코드 리로드
+	timer.start();
+	switcher=0;
+	Api.replyRoom(console_room_name,"리로드 시작...");
+	wake.on();
+	try{
+		Api.reload();
+	}catch(e){
+		Api.replyRoom(console_room_name,e + "\n" + e.stack);
+	}
+	wake.off();
+	var time = timer.end();
+	Api.replyRoom(console_room_name,"리로드 완료!");
+	msg = "경과시간: " + java.lang.String.format("%.2f",time/1000) + "초";
+	Api.replyRoom(console_room_name,msg);
+}
+
+wake=(function() {
+	var PM=android.os.PowerManager;
+	var pm =Api.getContext().getSystemService(android.content.Context.POWER_SERVICE);
+
+	var wl= pm.newWakeLock(PM.SCREEN_DIM_WAKE_LOCK|PM.ACQUIRE_CAUSES_WAKEUP |PM.ON_AFTER_RELEASE,"FAIL");
+	return {
+		on :function(){
+			if(!wl.isHeld()){
+				wl.acquire();
+				Api.replyRoom(console_room_name,"cpu온");
+			}
+		},
+		off:function(){
+			if(wl.isHeld()){
+				wl.release();
+				Api.replyRoom(console_room_name,"cpu오프");
+			}
+		},
+		toString: function(){
+			return wl.toString();
+		}
+	}
+})();
+
+timer = new (function(){ // 타이머
+	var low=new Date();
+	return {
+		start : function() {
+			low = new Date();
+		},
+		end : function() {
+			var present = new Date;
+			return present - low;
+		}
+	}})();
+
+function saveFile(file, str) {
+	//var filedir = new java.io.File("/sdcard/kbot/"+ file);
+	//var filedir = new java.io.File("/sdcard/ChatBot/BotData/시립"+ file);
+	var path = (file[0]=="/") ? file : "/sdcard/katalkbot/Bots/main/"+ file
+	var filedir = new java.io.File(path);
+	try {
+		var bw = new java.io.BufferedWriter(new java.io.FileWriter(filedir));
+		bw.write(str.toString());
+		bw.close();
+	} catch (e) {
+		return e;
+	}
+}
+
+function readFile(file) {
+	var filedir = new java.io.File("/sdcard/katalkbot/Bots/main/"+  file);
+	try {
+		var br = new java.io.BufferedReader(new java.io.FileReader(filedir));
+		var readStr = "";
+		var str = null;
+		while (((str = br.readLine()) != null)) {
+			readStr += str + "\n";
+		}
+		br.close();
+		return readStr.trim();
+	} catch (e) {
+		return e;
+	}
+}
+
+function require(src,force){
+	if(!force && cacheModule[src]!=undefined){
+		return cacheModule[src];
+	}
+	else{
+		var module = {exports:{}}
+		var exports=module.exports
+		eval(readFile("node_modules/"+src))
+		cacheModule[src] = module.exports;
+		return module.exports
+	}
+}
 
 //====================================== 카링 ======================================
 
@@ -3062,35 +2072,6 @@ String.prototype.DB=function(){ // 괄호와 괄호 안에 있는 데이터 삭�
 	return str2
 }
 
-String.prototype.Metro=function(){ // 존나 긴 역명 줄여버리기
-	if(this=="올림픽공원(한국체대)"){return "올림픽공원"}
-	if(this=="월드컵경기장(성산)"){return "월드컵경기장"}
-	if(this=="대흥(서강대앞)"){return "대흥"}
-	if(this=="공릉(서울산업대입구)"){return "공릉"}
-	if(this=="숭실대입구(살피재)"){return "숭실대입구"}
-	if(this=="군자(능동)"){return "군자"}
-	if(this=="천호(풍납토성)"){return "천호"}
-	if(this=="굽은다리(강동구민회관앞)"){return "굽은다리"}
-	if(this=="남한산성입구(성남법원, 검찰청)"){return "남한산성입구"}
-	if(this=="오목교(목동운동장앞)"){return "오목교"}
-	if(this=="몽촌토성(평화의문)"){return "몽촌토성"}
-	if(this=="증산(명지대앞)"){return "증산"}
-	if(this=="월곡(동덕여대)"){return "월곡"}
-	if(this=="어린이대공원(세종대)"){return "어린이대공원"}
-	if(this=="상도(중앙대앞)"){return "상도"}
-	if(this=="신정(은행정)"){return "신정"}
-	if(this=="광나루(장신대)"){return "광나루"}
-	if(this=="새절(신사)"){return "새절"}
-	if(this=="상월곡(한국과학기술연구원)"){return "상월곡"}
-	if(this=="화랑대(서울여대입구)"){return "화랑대"}
-	if(this=="응암순환(상선)"){return "응암순환"}
-	if(this=="총신대입구(이수)"){return "이수"}
-	if(this=="쌍용(나사렛대)"){return "쌍용"}
-	if(this=="아차산(어린이대공원후문)"){return "아차산"}
-	if(this=="안암(고대병원앞)"){return "안암"}
-	else{return this}
-}
-
 String.prototype.cut=function(line){
 	var str=this.toString()
 	str=str.split('\n')
@@ -3121,7 +2102,6 @@ Object.defineProperty(Object.prototype,"$",   {
 		}).join("\n");
 	}
 });
-
 
 
 
@@ -4071,35 +3051,6 @@ function UOSPKY_list(r) {
 }
 
 
-/*
-function UOSP2(){ // 전전컴공지(old)
-	var str = ""
-	var str2 = ""
-	var title = String(org.jsoup.Jsoup.connect("http://www.uos.ac.kr/engineering/korNotice/allList.do?list_id=20013DA1&cate_id2=000010058#a").get()).split('<li class="tb-wid02 txl">')[1].split('>')[1].split('<')[0]
-	if(title == "" || title == "MIWIFI" || title == undefined || title == getDB("titleUOS2_"+getNum("UOS2max")) ){
-		return 0
-	}
-	else{
-		setDB("titleUOS2_"+(getNum("UOS2max")+1),title)
-		setDB("UOS2max",getNum("UOS2max")+1)
-		//D.insert("mTable", {k: "titleUOS2_"+(getNum("UOS2max")+1), v: title});
-		//D.insert("mTable", {k: "UOS2max", v: getNum("UOS2max")+1});
-		str += "전전컴 공지가 새로 게시되었습니다\n"
-		str += getDB("titleUOS2_"+(getNum("UOS2max")))
-		str2 += "보러가기 : http://www.uos.ac.kr/engineering/korNotice/allList.do?list_id=20013DA1&cate_id2=000010058#a"
-		Api.replyRoom("봇장난",str)
-		Api.replyRoom("봇장난",str2)
-		Api.replyRoom("공지확인방",str)
-		Api.replyRoom("공지확인방",str2)
-		Api.replyRoom("시갤톡방",str)
-		Api.replyRoom("시갤톡방",str2)
-		//setTimeout(Api.replyRoom,["공지확인방2",str],300000)
-		//setTimeout(Api.replyRoom,["공지확인방2",str2],300000)
-		Api.replyRoom("시립대공지확인방",str)
-		Api.replyRoom("시립대공지확인방",str2)
-	}
-}
-*/
 
 
 function corona1(){
@@ -4196,286 +3147,6 @@ function UOSPcorona_list(r) {
 
 
 
-function parsingOPGG(name){ // 일반공지 파싱코드 (스플릿 + 정규식)
-	var temp = webRead("http://www.op.gg/summoner/userName="+encodeURI(name),"Connection:keep-alive").substr(0,120000)
-	var str=""
-	try{
-		var tier = temp.split("<span class=\"tierRank\">")[1].split("</span>")[0]
-	}
-	catch(e){
-		str=randReply("정확한 소환사명을 입력해주세요","존재하지 않는 소환사입니다.","검색결과가 없습니다.")
-		return str
-	}
-	try{
-		var leaguePoint = temp.split("<span class=\"LeaguePoints\">")[1].split("</span>")[0].replace(/\s/g,'')
-	}
-	catch(e){
-		leaguePoint = "0LP"
-	}
-	try{
-		var wins = temp.split("<span class=\"wins\">")[1].split("</span>")[0]
-	}
-	catch(e){
-		wins = "0승"
-	}
-	try{
-		var losses = temp.split("<span class=\"losses\">")[1].split("</span>")[0]
-	}
-	catch(e){
-		losses = "0패"
-	}
-	try{
-		var winRatio = temp.split("<span class=\"winratio\">")[1].split("</span>")[0]
-	}
-	catch(e){
-		winRatio = "Win Ratio 0%"
-	}
-	try{
-		var win = temp.split("<span class=\"win\">")[1].split("</span>")[0]
-	}
-	catch(e){
-		win = 0
-	}
-	try{
-		var lose = temp.split("<span class=\"lose\">")[1].split("</span>")[0]
-	}
-	catch(e){
-		lose = 0
-	}
-
-	str += name+" : "+tier+" "+leaguePoint+" ("+wins+", "+losses+", "+winRatio+")\n"
-	str += "최근 전적 "+win+"승 "+lose+"패"
-
-	return str
-}
-
-function parsingMetro(station){
-	var key = "556b6a434572316a35374c6b47524a"
-	var str_I = webRead("http://swopenapi.seoul.go.kr/api/subway/"+key+"/xml/realtimeStationArrival/0/30/"+encodeURI(station))
-	var str = []
-	str = str_I.split("<row><rowNum>")
-	try{
-		stationLine = str[1].split("<subwayList>")[1].split("</subwayList>")[0] // 해당 역에 다니는 지하철 호선
-		for(var i=0 ; i<str.length-1 ; i++){
-			subwayId[i] = str[i+1].split("<subwayId>")[1].split("</subwayId>")[0] // subwayID_회기0 / 지하철 호선명 / 1001:1호선, 1063:경의중앙선
-			updnLine[i] = str[i+1].split("<updnLine>")[1].split("</updnLine>")[0] // 상행 하행 정보
-			trainLineNm[i] = /([^행]+행)/.exec(str[i+1].split("<trainLineNm>")[1].split("</trainLineNm>")[0])[1] // 도착지 방면 (어디행인지)
-			arvlMsg2[i] = str[i+1].split("<arvlMsg2>")[1].split("</arvlMsg2>")[0].DB().replace( /\s$/ , "" ) // 열차가 몇번째 전역에 있는지
-			arvlMsg3[i] = str[i+1].split("<arvlMsg3>")[1].split("</arvlMsg3>")[0] // 열차 현재 위치
-			arvlCd[i] = str[i+1].split("<arvlCd>")[1].split("</arvlCd>")[0] // 도착코드 : (0:진입, 1:도착, 2:출발, 3:전역출발, 4:전역진입, 5:전역도착, 99:운행중)
-			ordkey[i] = str[i+1].split("<ordkey>")[1].split("</ordkey>")[0]
-			barvlDt[i] = str[i+1].split("<barvlDt>")[1].split("</barvlDt>")[0]
-		}
-		metroNumber = str.length-1
-		//setDB("metroNumber",str.length-1)
-	}// try
-	catch(e){
-		Api.replyRoom("봇장난","parsingMetro error\n"+e + "\n" + e.rhinoException);
-	}
-}
-
-function sortMetro2(station){
-	var errorCode = parsingMetro(station)
-	if(errorCode=="1"){
-		return 0 // 운행중인 전철이 없음
-	}
-	if(errorCode=="0"){
-		return 1 //
-	}
-	var num = metroNumber
-	var u = 0
-	var d = 0
-	var u1 = 0
-	var u2 = 0
-	var u3 = 0
-	var u4 = 0
-	var u5 = 0
-	var u6 = 0
-	var u7 = 0
-	var u8 = 0
-	var u9 = 0
-	var d1 = 0
-	var d2 = 0
-	var d3 = 0
-	var d4 = 0
-	var d5 = 0
-	var d6 = 0
-	var d7 = 0
-	var d8 = 0
-	var d9 = 0
-	var uKM = 0
-	var dKM = 0
-	var uOB = 0
-	var dOB = 0
-	var uNB = 0
-	var dNB = 0
-	var uAF = 0
-	var dAF = 0
-	var uKC = 0
-	var dKC = 0
-	s1U = []
-	s1D = []
-	s2U = []
-	s2D = []
-	s3U = []
-	s3D = []
-	s4U = []
-	s4D = []
-	s5U = []
-	s5D = []
-	s6U = []
-	s6D = []
-	s7U = []
-	s7D = []
-	s8U = []
-	s8D = []
-	s9U = []
-	s9D = []
-	KMU = []
-	KMD = []
-	OBU = []
-	OBD = []
-	NBU = []
-	NBD = []
-	AFU = []
-	AFD = []
-	KCU = []
-	KCD = []
-
-
-	for(var i=0 ; i<num ; i++){
-		//=======================================================================================================================================
-		if( subwayId[i] == "1001" && updnLine[i] == "상행" ){ // 1호선 상행
-			s1U[u1] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			u1++
-		}
-		if( subwayId[i] == "1001" && updnLine[i] == "하행" ){ // 1호선 하행
-			s1D[d1] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			d1++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1002" && updnLine[i] == "내선" ){ // 2호선 내선
-			s2U[u2] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			u2++
-		}
-		if( subwayId[i] == "1002" && updnLine[i] == "외선" ){ // 2호선 외선
-			s2D[d2] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			d2++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1003" && updnLine[i] == "상행" ){ // 3호선 상행
-			s3U[u3] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			u3++
-		}
-		if( subwayId[i] == "1003" && updnLine[i] == "하행" ){ // 3호선 하행
-			s3D[d3] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			d3++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1004" && updnLine[i] == "상행" ){ // 4호선 상행
-			s4U[u4] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			u4++
-		}
-		if( subwayId[i] == "1004" && updnLine[i] == "하행" ){ // 4호선 하행
-			s4D[d4] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			d4++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1005" && updnLine[i] == "상행" ){ // 5호선 상행
-			s5U[u5] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			u5++
-		}
-		if( subwayId[i] == "1005" && updnLine[i] == "하행" ){ // 5호선 하행
-			s5D[d5] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			d5++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1006" && updnLine[i] == "상행" ){ // 6호선 상행
-			s6U[u6] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			u6++
-		}
-		if( subwayId[i] == "1006" && updnLine[i] == "하행" ){ // 6호선 하행
-			s6D[d6] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			d6++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1007" && updnLine[i] == "상행" ){ // 7호선 상행
-			s7U[u7] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			u7++
-		}
-		if( subwayId[i] == "1007" && updnLine[i] == "하행" ){ // 7호선 하행
-			s7D[d7] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			d7++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1008" && updnLine[i] == "상행" ){ // 8호선 상행
-			s8U[u8] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			u8++
-		}
-		if( subwayId[i] == "1008" && updnLine[i] == "하행" ){ // 8호선 하행
-			s8D[d8] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			d8++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1009" && updnLine[i] == "상행" ){ // 9호선 상행
-			s9U[u9] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			u9++
-		}
-		if( subwayId[i] == "1009" && updnLine[i] == "하행" ){ // 9호선 하행
-			s9D[d9] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			d9++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1063" && updnLine[i] == "상행" ){ // 경의중앙선 상행
-			KMU[uKM] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			uKM++
-		}
-		if( subwayId[i] == "1063" && updnLine[i] == "하행" ){ // 경의중앙선 하행
-			KMD[dKM] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			dKM++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1075" && updnLine[i] == "상행" ){ // 분당선 상행
-			OBU[uOB] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			uOB++
-		}
-		if( subwayId[i] == "1075" && updnLine[i] == "하행" ){ // 분당선 하행
-			OBD[dOB] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			dOB++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1077" && updnLine[i] == "상행" ){ // 신분당선 상행
-			NBU[uNB] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			uNB++
-		}
-		if( subwayId[i] == "1077" && updnLine[i] == "하행" ){ // 신분당선 하행
-			NBD[dNB] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			dNB++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1065" && updnLine[i] == "상행" ){ // 공항철도 상행
-			AFU[uAF] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			uAF++
-		}
-		if( subwayId[i] == "1065" && updnLine[i] == "하행" ){ // 공항철도 하행
-			AFD[dAF] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			dAF++
-		}
-		//=======================================================================================================================================
-		if( subwayId[i] == "1067" && updnLine[i] == "상행" ){ // 경춘선 상행
-			KCU[uKC] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			uKC++
-		}
-		if( subwayId[i] == "1067" && updnLine[i] == "하행" ){ // 경춘선 하행
-			KCD[dKC] = arvlMsg2[i]+"||"+arvlMsg3[i]+"||"+arvlCd[i]+"||"+trainLineNm[i] // 몇번째전역||ㅇㅇ역||도착 형식
-			dKC++
-		}
-		//=======================================================================================================================================
-
-
-	}
-
-}
 
 
 function parsingSG_text(number){ // 해당 글번호에 해당하는 글 파싱
@@ -5819,8 +4490,6 @@ function range () { //start , stop , step
 	return a;
 }
 
-
-
 function fileSize(file){
 	if(file.isFile()) length = file.length();
 	else{
@@ -5871,48 +4540,9 @@ function showlist(path){
 }
 
 
-timer = new (function(){
-	var low=new Date();
-	return {
-		start : function() {
-			low = new Date();
-		},
-		end : function() {
-			var present = new Date;
-			return present - low;
-		}
-	}})();
-
 //=====================================================================================================================================
 //====================================================    DB     ====================================================================
 //=====================================================================================================================================
-
-function saveFile(file, str) {
-	var filedir = new java.io.File("/sdcard/kbot/"+ file);
-	try {
-		var bw = new java.io.BufferedWriter(new java.io.FileWriter(filedir));
-		bw.write(str.toString());
-		bw.close();
-	} catch (e) {
-		return e;
-	}
-}
-
-function readFile(file) {
-	var filedir = new java.io.File("/sdcard/kbot/"+  file);
-	try {
-		var br = new java.io.BufferedReader(new java.io.FileReader(filedir));
-		var readStr = "";
-		var str = null;
-		while (((str = br.readLine()) != null)) {
-			readStr += str + "\n";
-		}
-		br.close();
-		return readStr.trim();
-	} catch (e) {
-		return e;
-	}
-}
 
 function setDB(key,value){
 	if(D.selectForArray("mTable", null, "k like ?", key).length == 0){ // 해당하는 key에 value가 없는 경우
@@ -5922,8 +4552,6 @@ function setDB(key,value){
 		D.update("mTable", {v:value}, "k=?", [key])
 	}
 }
-
-
 
 function getDB(key){
 	var arr = D.selectForArray("mTable", null, "k=?", [key]);
@@ -6122,46 +4750,7 @@ function updateDB() {
 	}
 }
 
-/*
-function searchDB(key){
-	var str = "%"+key.split("").join("%")+"%"
-	var res = ""
-	var mc = ""
 
-	var i=0
-	var j=0
-	var temp = 0
-
-	ECE_temp_교과목명 = []
-	ECE_temp_담당교수 = []
-	ECE_temp_강의시간및강의실 = []
-
-	mc=myDB.rawQuery("select * from UOSDB where v like '"+str+"'",null)
-	while(mc.moveToNext()){
-	res+=mc.getString(0)+"||"+mc.getString(1)+"\n"
-	}
-	mc.close()
-
-	var Num = textCount(res,"\n")
-	while(i<Num){
-		if( /교과목명_+([0-9]+)$/.test(res.split("||")[i]) == true ){ // 교과목명이 뽑힐 때
-			temp = /교과목명_+([0-9]+)$/.exec(res.split("||")[i])[1]
-			ECE_temp_교과목명[j] = getUOSDB("교과목명_"+temp+"_main")
-			ECE_temp_담당교수[j] = getUOSDB("담당교수_"+temp)
-			ECE_temp_강의시간및강의실[j] = getUOSDB("강의시간및강의실_"+temp)
-			j++
-		}
-		else if(/담당교수_+([0-9]+)$/.test(res.split("||")[i])==true){ // 교과목명이 뽑힐 때
-			temp = /담당교수_+([0-9]+)$/.exec(res.split("||")[i])[1]
-			ECE_temp_교과목명[j] = getUOSDB("교과목명_"+temp+"_main")
-			ECE_temp_담당교수[j] = getUOSDB("담당교수_"+temp)
-			ECE_temp_강의시간및강의실[j] = getUOSDB("강의시간및강의실_"+temp)
-			j++
-		}
-		i++
-	}
-}
-*/
 
 
 // ================================================== 시간표 DB 신형 ===========================================================
@@ -6273,61 +4862,6 @@ function searchDB(key,year){
 }
 
 
-/*
-// 개량 시도중인 DB
-function searchDB(key,year){
-	var str = "%"+key.split("").join("%")+"%"
-	var res = ""
-	var mc = ""
-
-	var i=0
-	var j=0
-	var temp = 0
-
-	var DB_번호 = [] //0
-	var DB_년도 = [] //1
-	var DB_학기 = [] //2
-	var DB_학부 = [] //3
-	var DB_교과구분 = [] //4
-	var DB_세부영역 = [] //5
-	var DB_교과번호 = [] //6
-	var DB_분반 = [] //7
-	var DB_교과목명 = [] //8
-	var DB_학년 = [] //9
-	var DB_학점 = [] //10
-	var DB_담당교수 = [] //11
-	var DB_주야 = [] //12
-	var DB_강의유형 = [] //13
-	var DB_강의시간및강의실 = [] //14
-
-	var try1 = D.selectForArray("UOStime",null,"DB_교과목명 like ? and DB_년도 = ?",[str,year])
-	res+=try1.join("||")
-	var try2 = D.selectForArray("UOStime",null,"DB_담당교수 like ? and DB_년도 = ?",[str,year])
-	res+=try2.join("||")
-
-
-	mc=D.rawQuery("select * from UOStime where DB_교과목명 like '"+str+"' and DB_년도 = '"+year+"'",null) // 교과목명에서 검색
-	while(mc.moveToNext()){
-		for(var i=0;i<14;i++){
-			res+=mc.getString(i)+"||"
-		}
-		res+=mc.getString(14)+"\n"
-	}
-	mc.close()
-
-	mc=D.rawQuery("select * from UOStime where DB_담당교수 like '"+str+"' and DB_년도 = '"+year+"'",null) // 담당교수명에서 검색
-	while(mc.moveToNext()){
-		for(var i=0;i<14;i++){
-			res+=mc.getString(i)+"||"
-		}
-		res+=mc.getString(14)+"\n"
-	}
-	mc.close()
-
-
-	return res
-}
-*/
 
 // =========================================== chat DB =========================================================================
 
@@ -6442,16 +4976,6 @@ function searchZYHRDB(Date){
 //====================================================    DB끝     ====================================================================
 //=====================================================================================================================================
 
-
-function getLibSeat(){
-	abc = org.jsoup.Jsoup.connect("http://wisem.uos.ac.kr/mobile/MA/xml_seat_status_list.php").data("lib_gb", "C").post().select("item").toArray();
-	res = "";
-	for (var i = 0; i < abc.length; i++) {
-		res += abc[i].select("room_name").text().replace("(중) ", "") + " (" + abc[i].select("use_seat").text() + "/" + abc[i].select("total_seat").text() + ")\n";
-	}
-	res += "(점유좌석/총좌석)"
-	return res;
-}
 getEcoLibSeat=function() {
 	abc = org.jsoup.Jsoup.connect("http://wisem.uos.ac.kr/mobile/MA/xml_seat_status_list.php").data("lib_gb", "A").post().select("item").toArray();
 	res = "";
@@ -6471,68 +4995,8 @@ getLawLibSeat=function() {
 	return res;
 }
 
-wake=(function() {
-	var PM=android.os.PowerManager;
-	var pm =Api.getContext().getSystemService(android.content.Context.POWER_SERVICE);
-
-	var wl= pm.newWakeLock(PM.SCREEN_DIM_WAKE_LOCK|PM.ACQUIRE_CAUSES_WAKEUP |PM.ON_AFTER_RELEASE,"FAIL");
-	return {
-		on :function(){
-			if(!wl.isHeld()){
-				wl.acquire();
-				Api.replyRoom("봇장난","cpu온");
-			}
-		},
-		off:function(){
-			if(wl.isHeld()){
-				wl.release();
-				Api.replyRoom("봇장난","cpu오프");
-			}
-		},
-		toString: function(){
-			return wl.toString();
-		}
-	}
-})();
-
-function update() {
-	timer.start();
-	Api.replyRoom("봇장난","updating...");
-	Git.pull("https://github.com/Schwalbe262/uosgall_bot","/sdcard/kbot")
-	Api.replyRoom("봇장난","complete");
-	var time = timer.end();
-	var msg = "time : " + java.lang.String.format("%.2f",time/1000) + "sec";
-	Api.replyRoom("봇장난",msg);
-
-	setDB("KOSPI_reference",KOSPI_reference)
-	setDB("NASDAQ_reference",NASDAQ_reference)
-	setDB("KOSDAQ_reference",KOSDAQ_reference)
-	setDB("KOSPI_log",KOSPI_log)
-	setDB("NASDAQ_log",NASDAQ_log)
-	setDB("KOSDAQ_log",KOSDAQ_log)
-
-	Api.replyRoom("봇장난","웅앙맨 외에 신은 없고 흰머리 오목눈이는 그의 사도다. 2020/07/24");
-
-	return ""
-}
 
 
-function reload () {
-	timer.start();
-	switcher=0;
-	Api.replyRoom("봇장난","리로드 시작...");
-	wake.on();
-	try{
-		Api.reload();
-	}catch(e){
-		Api.replyRoom("봇장난",e + "\n" + e.stack);
-	}
-	wake.off();
-	var time = timer.end();
-	Api.replyRoom("봇장난","리로드 완료!");
-	msg = "경과시간: " + java.lang.String.format("%.2f",time/1000) + "초";
-	Api.replyRoom("봇장난",msg);
-}
 
 
 
@@ -7163,19 +5627,6 @@ console={
 	}
 }
 
-/*
-
-consoleTEST={
-	nyan:function (msg){
-		Api.replyRoom("봇장난","냥댁솦")
-	},
-	irilhi:function (msg){
-		Api.replyRoom("봇장난","이릴히")
-	}
-}
-
-
-*/
 
 function TEST(){
 	Api.replyRoom("봇장난", "정상작동")
