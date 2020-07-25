@@ -3775,6 +3775,9 @@ thread_UOSP_control = new java.lang.Thread(new java.lang.Runnable({
 					if( date.getHours()>8 && date.getHours()<22 ){
 
 						try{ UOSP.UOSP2() }catch(e){}
+						java.lang.Thread.sleep(1000)
+						try{ UOSP.UOSP3() }catch(e){}
+						java.lang.Thread.sleep(1000)
 
 						for(let i=1 ; i<23 ; i++){
 							try{
@@ -3785,7 +3788,7 @@ thread_UOSP_control = new java.lang.Thread(new java.lang.Runnable({
 
 						if(SW==1){
 							UOSP.UOS_temp_controller("1","ON")
-							UOSP.UOSP3()
+							java.lang.Thread.sleep(1000)
 							UOSP.UOSP6()
 							SW = 2
 						}
