@@ -3774,7 +3774,7 @@ thread_UOSP_control = new java.lang.Thread(new java.lang.Runnable({
 					if( (date.getHours()==11||date.getHours()==14||date.getHours()==17) && SW == 0 ){SW = 1} // 꺼짐 상태 -> 작동대기 상태
 					if( date.getHours()>8 && date.getHours()<22 ){
 
-						try{ //UOSP.UOSP2() }catch(e){}
+						//try{ UOSP.UOSP2() }catch(e){}
 
 						for(let i=1 ; i<23 ; i++){
 							try{
