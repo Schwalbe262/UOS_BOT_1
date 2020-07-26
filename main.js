@@ -3778,6 +3778,8 @@ thread_UOSP_control = new java.lang.Thread(new java.lang.Runnable({
 						java.lang.Thread.sleep(1000)
 						try{ UOSP.UOSP3() }catch(e){}
 						java.lang.Thread.sleep(1000)
+						try{ UOSP.UOSP4() }catch(e){}
+						java.lang.Thread.sleep(1000)
 
 						for(let i=1 ; i<23 ; i++){
 							try{
