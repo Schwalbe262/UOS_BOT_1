@@ -1303,7 +1303,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 
 		if(msg.indexOf("/시갤검색글쓴이") == 0){
-			let temp = DCP.UOS_search(msg.substr(9),"title")
+			let temp = DCP.UOS_search(msg.substr(9),"writer")
 			if(temp != undefined){
 				r.reply(temp)
 			}
@@ -1313,7 +1313,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 		}
 		else if(msg.indexOf("/시갤검색") == 0){
-			let temp = DCP.UOS_search(msg.substr(6),"writer")
+			let temp = DCP.UOS_search(msg.substr(6),"title")
 			if(temp != undefined){
 				r.reply(temp)
 			}
