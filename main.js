@@ -1303,10 +1303,10 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 
 		if(msg.indexOf("/시갤검색글쓴이") == 0){
-			r.reply(DCP.UOS_search(msg.subst(9),mod))
+			r.reply(DCP.UOS_search(msg.subst(9),"writer"))
 		}
 		else if(msg.indexOf("/시갤검색") == 0){
-			r.reply(DCP.UOS_search(msg.substr(6),mod))
+			r.reply(DCP.UOS_search(msg.substr(6),"title"))
 		}
 		else if(msg=="/시갤"){
 			DCP.UOS_list(room)
