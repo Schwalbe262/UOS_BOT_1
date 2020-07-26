@@ -1304,22 +1304,22 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 		if(msg.indexOf("/시갤검색글쓴이") == 0){
 			let temp = DCP.UOS_search(msg.substr(9),"writer")
-			if(temp != undefined){
+			if(temp != ""){
 				r.reply(temp)
 			}
 			else{
-				r.reply("검색 결과가 없습니다.")
+				r.reply(msg.substr(9) + "검색 결과가 없습니다.")
 			}
 
 		}
 		else if(msg.indexOf("/시갤검색") == 0){
 			let temp = DCP.UOS_search(msg.substr(6),"title")
 			// 웅맨살
-			if(temp != undefined){
+			if(temp != ""){
 				r.reply(temp)
 			}
 			else{
-				r.reply("검색 결과가 없습니다.")
+				r.reply(msg.substr(6) + " 검색 결과가 없습니다.")
 			}
 
 		}
