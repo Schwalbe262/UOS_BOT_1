@@ -1087,6 +1087,15 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 			r.reply(HHaksik.getHaksik(msg))
 		}
 
+		//==============================================================================================================
+		//======================================== 공지 =================================================================
+
+		if(msg=="/일반공지"){ UOSP.UOSP1_list(room) }
+		else if(msg=="/학사공지"){ UOSP.UOSP2_list(room) }
+		else if(msg=="/채용공지"){ UOSP.UOSP3_list(room) }
+		else if(msg=="/창업공지"){ UOSP.UOSP4_list(room) }
+		else if(msg=="/장학공지"){ UOSP.UOSP5_list(room) }
+		else if(msg=="/시설공사공지"||msg=="/시설공지"){ UOSP.UOSP6_list(room) }
 
 // =================================== 임시기능 모음 ===========================================
 
@@ -3777,21 +3786,23 @@ thread_UOSP_control = new java.lang.Thread(new java.lang.Runnable({
 					if( date.getHours()>8 && date.getHours()<22 ){
 
 						try{ UOSP.UOSP3() }catch(e){}
-						java.lang.Thread.sleep(1000)
+						java.lang.Thread.sleep(5000)
 						try{ UOSP.UOSP4() }catch(e){}
-						java.lang.Thread.sleep(1000)
+						java.lang.Thread.sleep(5000)
+						try{ UOSP.UOSP5() }catch(e){}
+						java.lang.Thread.sleep(5000)
+						try{ UOSP.UOSP5() }catch(e){}
+						java.lang.Thread.sleep(5000)
 
 						for(let i=1 ; i<23 ; i++){
 							try{
 								UOSP.UOS_temp_controller(String(i))
-								java.lang.Thread.sleep(1000)
+								java.lang.Thread.sleep(3000)
 							} catch(e){}
 						}
 
 						if(SW==1){
 							UOSP.UOS_temp_controller("1","ON")
-							java.lang.Thread.sleep(1000)
-							UOSP.UOSP6()
 							SW = 2
 						}
 
