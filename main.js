@@ -1302,9 +1302,16 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 		else if(r.s=="ㅇㅅㅁ"&&msg.substring(0,1)=="섹"&&msg.substring(1,2)!="스"){replier.reply("스"+msg.substring(1,2))}
 
 
-		if(msg=="/시갤"){
+		if(msg.indexOf("/시갤검색글쓴이") == 0){
+			r.reply(DCP.UOS_search(msg.subst(9),mod))
+		}
+		else if(msg.indexOf("/시갤검색") == 0){
+			r.reply(DCP.UOS_search(msg.substr(6),mod))
+		}
+		else if(msg=="/시갤"){
 			DCP.UOS_list(room)
 		}
+
 
 //==================================================================================================================================
 //===================================      채팅존        ===========================================================================
