@@ -98,7 +98,7 @@ var evalON=0;
 var NECevalON=0;
 
 
-var myDB = android.database.sqlite.SQLiteDatabase.openDatabase("/sdcard/kbot/DB", null, android.database.sqlite.SQLiteDatabase.CREATE_IF_NECESSARY);
+var myDB = android.database.sqlite.SQLiteDatabase.openDatabase("/sdcard/katalkbot/Bots/main/DB", null, android.database.sqlite.SQLiteDatabase.CREATE_IF_NECESSARY);
 
 
 var responseOFF=0
