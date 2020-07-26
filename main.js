@@ -1096,6 +1096,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 		else if(msg=="/창업공지"){ UOSP.UOSP4_list(room) }
 		else if(msg=="/장학공지"){ UOSP.UOSP5_list(room) }
 		else if(msg=="/시설공사공지"||msg=="/시설공지"){ UOSP.UOSP6_list(room) }
+		else if(msg.indexOf("/")!=-1&&msg.indexOf("공지")!=-1){ UOSP.UOSP_depart_check(room,msg.substr(1).replace("공지","")) }
 
 // =================================== 임시기능 모음 ===========================================
 
