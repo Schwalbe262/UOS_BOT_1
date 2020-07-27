@@ -1142,7 +1142,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 
 		if(msg=="/중도"){
-			r.reply(UOS_library.displayLibSeat(room))
+			UOS_library.displayLibSeat(room)
 		}
 		if(msg=="/경도"){
 			r.reply(getEcoLibSeat())
