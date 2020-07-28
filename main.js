@@ -1319,7 +1319,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 				r.reply(temp)
 			}
 			else{
-				r.reply(msg.substr(6) + " 검색 결과가 없습니다.")
+				r.reply(msg.substr(8) + " 검색 결과가 없습니다.")
 			}
 
 		}
