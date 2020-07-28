@@ -1313,7 +1313,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 		}
 		else if(msg.indexOf("/시갤검색ip") == 0){
-			let temp = DCP.UOS_search(msg.substr(8),"title")
+			let temp = DCP.UOS_search(msg.substr(8),"ip")
 			// 웅맨살
 			if(temp != ""){
 				r.reply(temp)
