@@ -1312,6 +1312,17 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 			}
 
 		}
+		else if(msg.indexOf("/시갤검색ip") == 0){
+			let temp = DCP.UOS_search(msg.substr(8),"title")
+			// 웅맨살
+			if(temp != ""){
+				r.reply(temp)
+			}
+			else{
+				r.reply(msg.substr(6) + " 검색 결과가 없습니다.")
+			}
+
+		}
 		else if(msg.indexOf("/시갤검색") == 0){
 			let temp = DCP.UOS_search(msg.substr(6),"title")
 			// 웅맨살
