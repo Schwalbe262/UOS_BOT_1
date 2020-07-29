@@ -3789,7 +3789,8 @@ thread_DCP = new java.lang.Thread(new java.lang.Runnable({
 				try{
 					Api.replyRoom(console_room_name,"DCP 작동")
 					java.lang.Thread.sleep(5000)
-					DCP2.UOS_parsing()
+					eval(DCP2.UOS_parsing())
+
 				}
 				catch(e){
 					java.lang.Thread.sleep(30000)
