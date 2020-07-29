@@ -1184,6 +1184,10 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 
 
+		if(msg=="/시갤파싱"){
+			DCP.UOSP()
+		}
+
 
 
 
