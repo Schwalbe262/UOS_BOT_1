@@ -3786,7 +3786,6 @@ thread_UOSP1 = new java.lang.Thread(new java.lang.Runnable({
 
 					try{
 						Api.replyRoom(console_room_name,"DCP 시작")
-						DCP.UOSP()
 						java.lang.Thread.sleep(1000)
 					}catch(e){
 						Api.replyRoom(console_room_name,"시갤파싱오류")
