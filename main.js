@@ -251,6 +251,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 		clock.start();
 		thread_UOSP1.start()
 		thread_UOSP_control.start();
+		thread_DCP.start();
 		start=0;
 	}
 
@@ -3769,6 +3770,34 @@ clock = new java.lang.Thread(new java.lang.Runnable(){
 	}
 }, "kbot_thread_clock");
 
+
+thread_DCP = new java.lang.Thread(new java.lang.Runnable({
+	run:function(){
+		switcher = 1
+		//var is_printed = false
+		try{
+			Api.replyRoom(console_room_name,"DCP 스레드 실행")
+			while(1){
+				if(switcher == 0){
+					break
+				}
+				try{
+					DCP.UOSP()
+				}
+				catch(e){
+					java.lang.Thread.sleep(30000)
+				}
+
+				java.lang.Thread.sleep(30000) //10sec
+			}
+		}catch(e){
+			Api.replyRoom(console_room_name,"DCP 스레드 error\n"+e + "\n" + e.stack + "\n"+e.rhinoException);
+		}
+		finally{
+			Api.replyRoom(console_room_name,"DCP 스레드 종료")
+		}
+	}
+}), "katalkbot_thread_DCP");
 
 
 thread_UOSP1 = new java.lang.Thread(new java.lang.Runnable({
