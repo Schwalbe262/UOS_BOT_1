@@ -3784,7 +3784,9 @@ thread_UOSP1 = new java.lang.Thread(new java.lang.Runnable({
 
 				try{
 
-					try{ DCP.UOSP() }catch(e){}
+					try{ DCP.UOSP() }catch(e){
+						Api.replyRoom(console_room_name,"시갤파싱오류")
+					}
 
 					var date = new Date();
 					if( date.getHours()>8 && date.getHours()<22 ){
