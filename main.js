@@ -24,6 +24,7 @@ const UOS_notiece_name2 = "시립공지확인방2"
 // ============= 모듈 관련 변수 =================
 UOSP = require("UOSP.js")
 DCP = require("DCP.js")
+DCP2 = require("DCP2.js")
 Git = require("Git.js")
 Metro = require("Metro.js")
 UOS_library = require("UOS_library.js")
@@ -3784,7 +3785,7 @@ thread_DCP = new java.lang.Thread(new java.lang.Runnable({
 				try{
 					Api.replyRoom(console_room_name,"DCP 작동")
 					java.lang.Thread.sleep(5000)
-					DCP.UOS_parsing()
+					DCP2.UOS_parsing()
 				}
 				catch(e){
 					java.lang.Thread.sleep(30000)
