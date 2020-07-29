@@ -251,7 +251,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 		clock.start();
 		thread_UOSP1.start()
 		thread_UOSP_control.start();
-		thread_DCP.start();
+		//thread_DCP.start();
 		start=0;
 	}
 
@@ -3667,7 +3667,7 @@ clock = new java.lang.Thread(new java.lang.Runnable(){
 				}
 				try{
 					var date = new Date();
-					if(date.getHours()>22 || date.getHours()<7 || (date.getHours()==22 || date.getMinutes()>29) && (date.getDay()>0&&date.getDay()<7) ){
+					if(date.getHours()>22 || date.getHours()<7 || (date.getHours()==22 && date.getMinutes()>29) && (date.getDay()>0 || date.getDay()<7) ){
 						//NASDAQ_control();
 						NASDAQ_periodic_parse();
 					}
@@ -3812,15 +3812,6 @@ thread_UOSP1 = new java.lang.Thread(new java.lang.Runnable({
 				}
 
 				try{
-
-					try{
-						Api.replyRoom(console_room_name,"DCP 시작")
-						java.lang.Thread.sleep(1000)
-					}catch(e){
-						Api.replyRoom(console_room_name,"시갤파싱오류")
-						java.lang.Thread.sleep(30000)
-					}
-
 					var date = new Date();
 					if( date.getHours()>8 && date.getHours()<22 ){
 						try{ UOSP.UOSP1() }catch(e){}
