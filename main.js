@@ -251,7 +251,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 		clock.start();
 		thread_UOSP1.start()
 		thread_UOSP_control.start();
-		//thread_DCP.start();
+		thread_DCP.start();
 		start=0;
 	}
 
@@ -3782,7 +3782,7 @@ thread_DCP = new java.lang.Thread(new java.lang.Runnable({
 					break
 				}
 				try{
-					DCP.UOSP()
+					DCP.UOS_parsing()
 				}
 				catch(e){
 					java.lang.Thread.sleep(30000)
