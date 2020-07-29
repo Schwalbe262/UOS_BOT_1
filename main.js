@@ -23,7 +23,7 @@ const UOS_notiece_name2 = "시립공지확인방2"
 
 // ============= 모듈 관련 변수 =================
 UOSP = require("UOSP.js")
-//DCP = require("DCP.js")
+DCP = require("DCP.js")
 Git = require("Git.js")
 Metro = require("Metro.js")
 UOS_library = require("UOS_library.js")
