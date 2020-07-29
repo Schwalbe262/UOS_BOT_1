@@ -251,7 +251,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 		clock.start();
 		thread_UOSP1.start()
 		thread_UOSP_control.start();
-		//thread_DCP.start();
+		thread_DCP.start();
 		start=0;
 	}
 
