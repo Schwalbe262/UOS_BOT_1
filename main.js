@@ -3783,11 +3783,15 @@ thread_UOSP1 = new java.lang.Thread(new java.lang.Runnable({
 				}
 
 				try{
+					
+					try{ DCP.UOSP() }catch(e){}
+
 					var date = new Date();
 					if( date.getHours()>8 && date.getHours()<22 ){
 						try{ UOSP.UOSP1() }catch(e){}
 						java.lang.Thread.sleep(1000)
 						try{ UOSP.UOSP2() }catch(e){}
+
 					}
 				}
 				catch(e){
