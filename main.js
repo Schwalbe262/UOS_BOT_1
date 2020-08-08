@@ -23,8 +23,6 @@ const UOS_notiece_name2 = "시립공지확인방2"
 
 // ============= 모듈 관련 변수 =================
 UOSP = require("UOSP.js")
-DCP = require("DCP.js")
-DCP2 = require("DCP2.js")
 Git = require("Git.js")
 Metro = require("Metro.js")
 UOS_library = require("UOS_library.js")
@@ -3774,38 +3772,6 @@ clock = new java.lang.Thread(new java.lang.Runnable(){
 		}
 	}
 }, "kbot_thread_clock");
-
-
-thread_DCP = new java.lang.Thread(new java.lang.Runnable({
-	run:function(){
-		switcher = 1
-		//var is_printed = false
-		try{
-			Api.replyRoom(console_room_name,"DCP 스레드 실행")
-			while(1){
-				if(switcher == 0){
-					break
-				}
-				try{
-					Api.replyRoom(console_room_name,"DCP 작동")
-					java.lang.Thread.sleep(5000)
-					eval(DCP2.UOS_parsing())
-
-				}
-				catch(e){
-					java.lang.Thread.sleep(30000)
-				}
-
-				java.lang.Thread.sleep(30000) //10sec
-			}
-		}catch(e){
-			Api.replyRoom(console_room_name,"DCP 스레드 error\n"+e + "\n" + e.stack + "\n"+e.rhinoException);
-		}
-		finally{
-			Api.replyRoom(console_room_name,"DCP 스레드 종료")
-		}
-	}
-}), "katalkbot_thread_DCP");
 
 
 thread_UOSP1 = new java.lang.Thread(new java.lang.Runnable({
