@@ -247,9 +247,9 @@ function response(room, msg, sender, isGroupChat, replier, imageDB) {
 
 	// 초기값 세팅
 	if(start==1){
-		clock.start();
-		thread_UOSP1.start()
-		thread_UOSP_control.start();
+		//clock.start();
+		//thread_UOSP1.start()
+		//thread_UOSP_control.start();
 		//thread_DCP.start();
 		start=0;
 	}
