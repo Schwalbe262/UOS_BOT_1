@@ -152,7 +152,7 @@ String.prototype.encoding=function(){
 function update() {
 	timer.start();
 	Api.replyRoom(console_room_name,"updating...");
-	Git.pull("https://github.com/Schwalbe262/UOS_BOT_4","/sdcard/katalkbot/Bots/main")
+	Git.pull("https://github.com/Schwalbe262/UOS_BOT_1","/sdcard/katalkbot/Bots/main")
 	Api.replyRoom(console_room_name,"complete");
 	var time = timer.end();
 	var msg = "time : " + java.lang.String.format("%.2f",time/1000) + "sec";
