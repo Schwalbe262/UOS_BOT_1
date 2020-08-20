@@ -6,8 +6,11 @@ var wl = pm.newWakeLock(PM.SCREEN_BRIGHT_WAKE_LOCK|PM.ACQUIRE_CAUSES_WAKEUP |PM.
 
 var cacheModule={} // require 관련 변수
 
-// ================= 방 관련 변수들 ====================
-const console_room_name = "시립봇4 컨트롤방" // 콘솔방 이름
+// ============= 방 관련 변수 ==============
+var console_room_name = "봇장난" // 콘솔방 이름
+const UOS_SG_name = "시갤톡방"
+const UOS_notiece_name1 = "시립공지확인방1"
+const UOS_notiece_name2 = "시립공지확인방2"
 
 // ================ 시동 관련 변수들 ====================
 var start = 1
