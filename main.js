@@ -65,7 +65,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 
 
 		// eval 코드
-		if(msg.indexOf(">")==0){
+		if(msg.indexOf(">")==0 && room=="봇장난"){
 			replier.reply(">"+new String(eval(msg.substring(1))).encoding());
 		}
 
